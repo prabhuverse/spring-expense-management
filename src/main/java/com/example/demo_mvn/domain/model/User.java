@@ -1,16 +1,15 @@
 package com.example.demo_mvn.domain.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Builder
 @Entity(name = "users")
 @Getter
 @Setter
@@ -32,6 +31,7 @@ public class User {
     @Column(nullable = false)
     private String name;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Expense> expenses;
 

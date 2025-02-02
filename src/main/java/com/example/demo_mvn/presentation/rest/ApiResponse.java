@@ -11,15 +11,15 @@ import org.springframework.http.HttpStatus;
 @Getter
 @Setter
 @AllArgsConstructor
-//@JsonInclude(JsonInclude.Include.NON_NULL)
+// @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> {
 
-    private HttpStatus status;
+	private HttpStatus status;
 
-    //private HttpStatus statusCode;
+	// private HttpStatus statusCode;
 
-    private String message;
+	private String message;
 
-    private T data;
+	private T data;
 
 }

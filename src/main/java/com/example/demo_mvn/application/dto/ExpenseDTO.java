@@ -7,5 +7,5 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record ExpenseDTO(Long id, ExpenseCategory category, String description, BigDecimal amount, LocalDate createdOn,
-                         User user) {
+		User user) {
 }

@@ -17,11 +17,11 @@ import java.time.LocalDateTime;
 public class DemoMvnController {
 
 
-    @GetMapping(value = "/status", produces = {MediaType.APPLICATION_JSON_VALUE})
-    //produces = {MediaType.APPLICATION_JSON_VALUE}
-    public ResponseEntity<ApiResponse<String>> healthStatus() {
-        log.info("Request reached health controller {}", LocalDateTime.now());
-        ApiResponse<String> response = new ApiResponse<>(HttpStatus.OK, "success", "OK");
-        return ResponseEntity.ok(response);
-    }
+	@GetMapping(value = "/status", produces = {MediaType.APPLICATION_JSON_VALUE})
+	// produces = {MediaType.APPLICATION_JSON_VALUE}
+	public ResponseEntity<ApiResponse<String>> healthStatus() {
+		log.info("Request reached health controller {}", LocalDateTime.now());
+		ApiResponse<String> response = new ApiResponse<>(HttpStatus.OK, "success", "OK");
+		return ResponseEntity.ok(response);
+	}
 }
