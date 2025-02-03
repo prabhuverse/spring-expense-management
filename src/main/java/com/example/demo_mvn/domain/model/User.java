@@ -13,8 +13,6 @@ import java.util.List;
 @Entity(name = "users")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 public class User {
 

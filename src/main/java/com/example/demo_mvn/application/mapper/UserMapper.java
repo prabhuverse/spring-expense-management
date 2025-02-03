@@ -16,7 +16,7 @@ import java.util.List;
 public class UserMapper {
 
 	@Autowired
-	ExpenseMapper expenseMapper;
+	public ExpenseMapper expenseMapper;
 
 	public User toUser(UserDTO userDTO) {
 		User user = User.builder().id(userDTO.id()).email(userDTO.email()).password(userDTO.password())
