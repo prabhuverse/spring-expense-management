@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 
 @Slf4j
 // handles the API requests (acts as ports), interactions
@@ -26,9 +28,14 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.POST, path = "/register", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<ApiResponse<UserDTO>> registerUser(@RequestBody UserDTO userDTO) {
 		log.info("User register request recieved {}", userDTO);
-		userDTO = userService.registerUser(userDTO);
-		ApiResponse<UserDTO> response = new ApiResponse<>(HttpStatus.CREATED, "user created", userDTO);
-		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+		Optional<UserDTO> resp = userService.registerUser(userDTO);
+		ApiResponse<UserDTO> response = null;
+		if (resp.isPresent()) {
+			response = new ApiResponse<>(HttpStatus.CREATED, "user created", userDTO);
+		} else {
+			response = new ApiResponse<>(HttpStatus.OK, "user not created", userDTO);
+		}
+		return ResponseEntity.ok(response);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{email}", produces = {MediaType.APPLICATION_JSON_VALUE})

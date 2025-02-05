@@ -1,6 +1,5 @@
 package com.example.demo_mvn.application;
 
-
 import com.example.demo_mvn.application.dto.UserDTO;
 import com.example.demo_mvn.application.mapper.ExpenseMapper;
 import com.example.demo_mvn.application.mapper.UserMapper;
@@ -15,18 +14,21 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test")
 @SpringBootTest
-public class UserServiceTest {
+public class UserServiceTest  {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -66,7 +68,7 @@ public class UserServiceTest {
 		// when(userMapper.toUserDTO(any(User.class))).thenReturn(mockUserDTO); // Ensure mapping works
 
 		// Call the method
-		UserDTO savedUser = userService.registerUser(mockUserDTO);
+		UserDTO savedUser = userService.registerUser(mockUserDTO).get();
 		log.info("Object saved {}", savedUser);
 		// assertNotNull(savedUser);
 		assertEquals(1L, savedUser.id());

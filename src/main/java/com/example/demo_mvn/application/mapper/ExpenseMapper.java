@@ -14,6 +14,7 @@ public class ExpenseMapper {
 	}
 
 	public Expense toEntity(ExpenseDTO dto) {
-		return new Expense(dto.id(), dto.category(), dto.createdOn(), dto.description(), dto.amount(), dto.user());
+		return Expense.builder().id(dto.id()).category(dto.category()).createdOn(dto.createdOn())
+				.description(dto.description()).amount(dto.amount()).user(dto.user()).build();
 	}
 }

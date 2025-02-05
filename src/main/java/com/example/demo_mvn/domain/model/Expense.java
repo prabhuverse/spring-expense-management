@@ -9,9 +9,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 // @Data
+@Builder
 @Entity(name = "expenses")
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class Expense {
@@ -38,6 +37,10 @@ public class Expense {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+
+	@Version
+	@Column
+	private Integer version;
 
 
 }

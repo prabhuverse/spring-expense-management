@@ -9,10 +9,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDate;
 import java.util.List;
 
-@Builder(builderMethodName = "builder")
+
 @Entity(name = "users")
 @Getter
 @Setter
+@Builder
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 public class User {
 
@@ -36,5 +37,9 @@ public class User {
 	@CreationTimestamp
 	@Column(columnDefinition = "DATE DEFAULT CURRENT_DATE")
 	private LocalDate createdOn;
+
+	@Version
+	@Column
+	private Integer version;
 }
 
