@@ -36,6 +36,6 @@ public class UserMapper {
 			user.getExpenses().forEach(expenseDto -> expenseList.add(expenseMapper.toDTO(expenseDto)));
 		}
 		return new UserDTO(user.getId(), user.getEmail(), user.getPassword(), user.getName(), expenseList,
-				user.getCreatedOn());
+				user.getCreatedOn(), user.getUpdateOn(), user.getVersion());
 	}
 }

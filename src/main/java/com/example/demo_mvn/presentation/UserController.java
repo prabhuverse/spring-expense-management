@@ -5,6 +5,7 @@ import com.example.demo_mvn.application.UserService;
 import com.example.demo_mvn.application.dto.UserDTO;
 import com.example.demo_mvn.presentation.rest.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,5 +45,15 @@ public class UserController {
 		UserDTO userDTO = userService.findUserByEmail(email);
 		ApiResponse<UserDTO> response = new ApiResponse<>(HttpStatus.OK, "user fetched", userDTO);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+
+	@RequestMapping(method = RequestMethod.PUT, path = "/update", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<ApiResponse<UserDTO>> updateUser(@RequestBody UserDTO userDTO) {
+		log.info("Update User object {}", userDTO);
+		if (StringUtils.isBlank(userDTO.email()))
+			return ResponseEntity.notFound().build();
+		UserDTO updatedUser = userService.updateUser(userDTO);
+		ApiResponse<UserDTO> response = new ApiResponse<>(HttpStatus.ACCEPTED, "user update", userDTO);
+		return ResponseEntity.ok(response);
 	}
 }

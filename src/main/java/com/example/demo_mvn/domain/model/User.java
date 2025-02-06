@@ -5,11 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "users")
 @Getter
 @Setter
@@ -35,8 +38,12 @@ public class User {
 	private List<Expense> expenses;
 
 	@CreationTimestamp
-	@Column(columnDefinition = "DATE DEFAULT CURRENT_DATE")
-	private LocalDate createdOn;
+	@Column
+	private LocalDateTime createdOn;
+
+	@UpdateTimestamp
+	@Column
+	private LocalDateTime updateOn;
 
 	@Version
 	@Column

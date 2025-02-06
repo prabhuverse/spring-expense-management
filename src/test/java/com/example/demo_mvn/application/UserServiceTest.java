@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 
@@ -50,7 +50,7 @@ public class UserServiceTest  {
 	void setUp() {
 		System.out.println("Executing ");
 		mockUser = User.builder().id(1L).name("Test Expense").email("test@gmail.com").password("test@123")
-				.createdOn(LocalDate.now()).build();
+				.createdOn(LocalDateTime.now()).build();
 		//mockUserDTO = new UserDTO();
 		// userMapper.expenseMapper = expenseMapper;
 		// when(userMapper.toUserDTO(any(User.class))).thenReturn(mockUserDTO);

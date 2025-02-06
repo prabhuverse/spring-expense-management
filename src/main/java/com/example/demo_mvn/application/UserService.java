@@ -5,6 +5,7 @@ import com.example.demo_mvn.application.mapper.UserMapper;
 import com.example.demo_mvn.domain.model.User;
 import com.example.demo_mvn.domain.model.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -47,4 +48,14 @@ public class UserService {
 		return userRepository.findById(id).get();
 	}
 
+	public UserDTO updateUser(UserDTO userDTO) {
+		User currentUser = userRepository.findByEmail(userDTO.email()).get();
+		if (StringUtils.isNotBlank(userDTO.name()))
+			currentUser.setName(userDTO.name());
+		if (StringUtils.isNotBlank(userDTO.password()))
+			currentUser.setPassword(userDTO.password());
+		log.info("Current User Before updating {} and useroj {}", currentUser, userDTO);
+		User updateUser = userRepository.save(currentUser);
+		return userMapper.toUserDTO(updateUser);
+	}
 }
