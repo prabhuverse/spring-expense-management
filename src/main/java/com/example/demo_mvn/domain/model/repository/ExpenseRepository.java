@@ -15,4 +15,6 @@ public interface ExpenseRepository {
 	List<Expense> findAll();
 
 	List<Expense> findByCategory(ExpenseCategory category);
+
+	void deleteById(Long id);
 }

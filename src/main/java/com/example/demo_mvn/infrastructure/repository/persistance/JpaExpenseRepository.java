@@ -3,6 +3,7 @@ package com.example.demo_mvn.infrastructure.repository.persistance;
 import com.example.demo_mvn.domain.model.Expense;
 import com.example.demo_mvn.domain.model.ExpenseCategory;
 import com.example.demo_mvn.domain.model.repository.ExpenseRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,11 +12,12 @@ import java.util.Optional;
 
 
 // implements the technical details
+@AllArgsConstructor
 @Repository
 public class JpaExpenseRepository implements ExpenseRepository {
 
-	@Autowired
-	SpringDataExpenseRepository expenseRepository;
+	// @Autowired
+	private final SpringDataExpenseRepository expenseRepository;
 
 	@Override
 	public Expense save(Expense expense) {
@@ -35,6 +37,11 @@ public class JpaExpenseRepository implements ExpenseRepository {
 	@Override
 	public List<Expense> findByCategory(ExpenseCategory category) {
 		return expenseRepository.findByCategory(category);
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		expenseRepository.deleteById(id);
 	}
 
 }

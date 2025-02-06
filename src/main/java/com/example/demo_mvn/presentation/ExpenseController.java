@@ -26,9 +26,25 @@ public class ExpenseController {
 
 
 	@RequestMapping(method = RequestMethod.POST, path = "/create")
-	public ExpenseDTO createExpense(@RequestBody ExpenseDTO expenseDTO) {
+	public ResponseEntity<ApiResponse<ExpenseDTO>> createExpense(@RequestBody ExpenseDTO expenseDTO) {
 		log.info("Received new expense request {}", expenseDTO);
-		return expenseService.createExpense(expenseDTO);
+		try {
+			ExpenseDTO createdExpense = expenseService.createExpense(expenseDTO);
+			if (createdExpense == null) {
+				// Assuming null means creation failed due to invalid data
+				ApiResponse<ExpenseDTO> errorResponse = new ApiResponse<>(HttpStatus.UNPROCESSABLE_ENTITY,
+						"Failed to create expense due to invalid input.", createdExpense);
+				return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errorResponse);
+			}
+			ApiResponse<ExpenseDTO> successResponse =
+					new ApiResponse<>(HttpStatus.CREATED, "Expense created successfully", createdExpense);
+			return ResponseEntity.status(HttpStatus.CREATED).body(successResponse);
+		} catch (Exception e) {
+			// Handle unexpected exceptions
+			ApiResponse<ExpenseDTO> errorResponse = new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR,
+					"Internal server error: " + e.getMessage(), null);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+		}
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/list/{category}",
@@ -41,4 +57,24 @@ public class ExpenseController {
 		return ResponseEntity.ok(response);
 	}
 
+	@RequestMapping(method = RequestMethod.GET, path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<ApiResponse<ExpenseDTO>> getExpenseById(@PathVariable @NonNull Long id) {
+		log.info("Fetch expense by id {}", id);
+		ExpenseDTO expenseDto = expenseService.getExpenseById(id);
+		if (expenseDto == null) {
+			return ResponseEntity.notFound().build();
+		}
+		ApiResponse<ExpenseDTO> response = new ApiResponse<>(HttpStatus.OK, "Expense Fetched", expenseDto);
+		return ResponseEntity.ok(response);
+	}
+
+	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<ApiResponse<ExpenseDTO>> deleteExpense(@PathVariable Long id) {
+		ExpenseDTO expenseDTO = expenseService.deleteExpense(id);
+		if (expenseDTO == null) {
+			return ResponseEntity.notFound().build();
+		}
+		ApiResponse<ExpenseDTO> response = new ApiResponse<>(HttpStatus.OK, "Expense deleted", expenseDTO);
+		return ResponseEntity.accepted().body(response);
+	}
 }

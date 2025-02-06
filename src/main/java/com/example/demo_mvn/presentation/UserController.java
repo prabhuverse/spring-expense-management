@@ -53,7 +53,7 @@ public class UserController {
 		if (StringUtils.isBlank(userDTO.email()))
 			return ResponseEntity.notFound().build();
 		UserDTO updatedUser = userService.updateUser(userDTO);
-		ApiResponse<UserDTO> response = new ApiResponse<>(HttpStatus.ACCEPTED, "user update", userDTO);
+		ApiResponse<UserDTO> response = new ApiResponse<>(HttpStatus.ACCEPTED, "user update", updatedUser);
 		return ResponseEntity.ok(response);
 	}
 }

@@ -14,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Slf4j
@@ -53,4 +54,22 @@ public class ExpenseService {
 		return expenseDTOS;
 	}
 
+	public ExpenseDTO deleteExpense(Long id) {
+		Optional<Expense> expense = repository.findById(id);
+		if (expense.isPresent()) {
+			repository.deleteById(id);
+			log.info("Expense delete {}", id);
+			return expenseMapper.toDTO(expense.get());
+		}
+		return null;
+	}
+
+	public ExpenseDTO getExpenseById(Long id) {
+		Optional<Expense> expense = repository.findById(id);
+		if (expense.isPresent()) {
+			log.info("Expense found by {}", id);
+			return expenseMapper.toDTO(expense.get());
+		}
+		return null;
+	}
 }
