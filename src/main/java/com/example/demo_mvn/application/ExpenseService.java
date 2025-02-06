@@ -8,6 +8,7 @@ import com.example.demo_mvn.domain.model.ExpenseCategory;
 import com.example.demo_mvn.domain.model.repository.ExpenseRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -25,13 +26,21 @@ public class ExpenseService {
 	@Autowired
 	ExpenseMapper expenseMapper;
 
+	@Autowired
+	UserService userService;
+
 	public ExpenseDTO createExpense(ExpenseDTO expenseDTO) {
 		Expense expense = expenseMapper.toEntity(expenseDTO);
-		expense = repository.save(expense);
-		log.info("Persisted expense object {}", expense);
+		expense.setUser(userService.findUserById(expense.getUser().getId()));
+		try {
+			expense = repository.save(expense);
+			log.info("Persisted expense object {}", expense);
+		} catch (DataIntegrityViolationException e) {
+			log.error("unable to persist expense object {} cause ", expense, e);
+			return null;
+		}
 		return expenseMapper.toDTO(expense);
 	}
-
 
 	public List<ExpenseDTO> listExpenseByType(ExpenseCategory category) {
 		List<Expense> expenses = repository.findByCategory(category);

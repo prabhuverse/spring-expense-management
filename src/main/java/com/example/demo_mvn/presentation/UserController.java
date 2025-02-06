@@ -5,11 +5,14 @@ import com.example.demo_mvn.application.UserService;
 import com.example.demo_mvn.application.dto.UserDTO;
 import com.example.demo_mvn.presentation.rest.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 
 @Slf4j
@@ -26,9 +29,14 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.POST, path = "/register", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<ApiResponse<UserDTO>> registerUser(@RequestBody UserDTO userDTO) {
 		log.info("User register request recieved {}", userDTO);
-		userDTO = userService.registerUser(userDTO);
-		ApiResponse<UserDTO> response = new ApiResponse<>(HttpStatus.CREATED, "user created", userDTO);
-		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+		Optional<UserDTO> resp = userService.registerUser(userDTO);
+		ApiResponse<UserDTO> response = null;
+		if (resp.isPresent()) {
+			response = new ApiResponse<>(HttpStatus.CREATED, "user created", userDTO);
+		} else {
+			response = new ApiResponse<>(HttpStatus.OK, "user not created", userDTO);
+		}
+		return ResponseEntity.ok(response);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{email}", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -37,5 +45,15 @@ public class UserController {
 		UserDTO userDTO = userService.findUserByEmail(email);
 		ApiResponse<UserDTO> response = new ApiResponse<>(HttpStatus.OK, "user fetched", userDTO);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+
+	@RequestMapping(method = RequestMethod.PUT, path = "/update", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<ApiResponse<UserDTO>> updateUser(@RequestBody UserDTO userDTO) {
+		log.info("Update User object {}", userDTO);
+		if (StringUtils.isBlank(userDTO.email()))
+			return ResponseEntity.notFound().build();
+		UserDTO updatedUser = userService.updateUser(userDTO);
+		ApiResponse<UserDTO> response = new ApiResponse<>(HttpStatus.ACCEPTED, "user update", userDTO);
+		return ResponseEntity.ok(response);
 	}
 }

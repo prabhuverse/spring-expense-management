@@ -31,10 +31,12 @@ public class ExpenseController {
 		return expenseService.createExpense(expenseDTO);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "/list/{category}", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(method = RequestMethod.GET, path = "/list/{category}",
+			produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<ApiResponse<List<ExpenseDTO>>> listExpenseByType(@PathVariable @NonNull String category) {
 		log.info("Fetch expenses by category {}", category);
-		List<ExpenseDTO> expenseDTOS = expenseService.listExpenseByType(ExpenseCategory.valueOf(category.toUpperCase()));
+		List<ExpenseDTO> expenseDTOS =
+				expenseService.listExpenseByType(ExpenseCategory.valueOf(category.toUpperCase()));
 		ApiResponse<List<ExpenseDTO>> response = new ApiResponse<>(HttpStatus.OK, "Expenses Fetched", expenseDTOS);
 		return ResponseEntity.ok(response);
 	}
