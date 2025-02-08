@@ -1,6 +1,5 @@
 package com.example.demo_mvn.infrastructure.config;
 
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -48,6 +47,9 @@ public class DataSourceConfiguration {
 		dataSourceBuilder.driverClassName(sourceProperties.getDriverClassName());
 		dataSourceBuilder.username(sourceProperties.getUsername());
 		dataSourceBuilder.password(sourceProperties.getPassword());
+		// HikariDataSource dataSource = (HikariDataSource) dataSourceBuilder.build();
+		// dataSource.setPoolName("Demo-PoolDB");
+		// dataSource.setReadOnly(true);
 		return dataSourceBuilder.build();
 	}
 }
