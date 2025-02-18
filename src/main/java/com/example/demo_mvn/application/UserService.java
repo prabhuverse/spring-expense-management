@@ -24,7 +24,7 @@ public class UserService {
 	@Autowired
 	UserMapper userMapper;
 
-	public Optional<UserDTO> registerUser(UserDTO userDTO) {
+	public Optional<UserDTO> registerUser(final UserDTO userDTO) {
 		Optional<UserDTO> userResponse = Optional.empty();
 		User user = userMapper.toUser(userDTO);
 		try {
@@ -37,18 +37,18 @@ public class UserService {
 		return userResponse;
 	}
 
-	public UserDTO findUserByEmail(String email) {
+	public UserDTO findUserByEmail(final String email) {
 		Optional<User> user = userRepository.findByEmail(email);
 		if (user.isPresent())
 			return userMapper.toUserDTO(user.get());
 		return null;
 	}
 
-	public User findUserById(Long id) {
+	public User findUserById(final Long id) {
 		return userRepository.findById(id).get();
 	}
 
-	public UserDTO updateUser(UserDTO userDTO) {
+	public UserDTO updateUser(final UserDTO userDTO) {
 		User currentUser = userRepository.findByEmail(userDTO.email()).get();
 		if (StringUtils.isNotBlank(userDTO.name()))
 			currentUser.setName(userDTO.name());
