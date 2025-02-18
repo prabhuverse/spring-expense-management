@@ -15,4 +15,6 @@ public class DataSourceProperties {
     private String password;
 
     private String driverClassName;
+
+    private HikariConfig hikari;
 }

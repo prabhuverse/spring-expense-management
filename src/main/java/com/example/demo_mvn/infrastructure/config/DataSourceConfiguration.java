@@ -1,5 +1,7 @@
 package com.example.demo_mvn.infrastructure.config;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -29,12 +31,15 @@ public class DataSourceConfiguration {
 	@Bean
 	@Profile("dev")
 	public DataSource devDataSource(@Qualifier("devDataSourceProperties") DataSourceProperties sourceProperties) {
-		DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-		dataSourceBuilder.url(sourceProperties.getUrl());
-		dataSourceBuilder.driverClassName(sourceProperties.getDriverClassName());
-		dataSourceBuilder.username(sourceProperties.getUsername());
-		dataSourceBuilder.password(sourceProperties.getPassword());
-		return dataSourceBuilder.build();
+		HikariConfig config = new HikariConfig();
+		config.setJdbcUrl(sourceProperties.getUrl());
+		config.setDriverClassName(sourceProperties.getDriverClassName());
+		config.setUsername(sourceProperties.getUsername());
+		config.setPassword(sourceProperties.getPassword());
+		config.setPoolName(sourceProperties.getHikari().getPoolName());
+		config.setMinimumIdle(sourceProperties.getHikari().getMinimumIdle());
+		config.setMaximumPoolSize(sourceProperties.getHikari().getMaximumPoolSize());
+		return new HikariDataSource(config);
 	}
 
 	@Bean
@@ -42,14 +47,14 @@ public class DataSourceConfiguration {
 	@Primary
 	public DataSource defaultDataSource(
 			@Qualifier("defaultDataSourceProperties") DataSourceProperties sourceProperties) {
-		DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-		dataSourceBuilder.url(sourceProperties.getUrl());
-		dataSourceBuilder.driverClassName(sourceProperties.getDriverClassName());
-		dataSourceBuilder.username(sourceProperties.getUsername());
-		dataSourceBuilder.password(sourceProperties.getPassword());
-		// HikariDataSource dataSource = (HikariDataSource) dataSourceBuilder.build();
-		// dataSource.setPoolName("Demo-PoolDB");
-		// dataSource.setReadOnly(true);
-		return dataSourceBuilder.build();
+		HikariConfig config = new HikariConfig();
+		config.setJdbcUrl(sourceProperties.getUrl());
+		config.setDriverClassName(sourceProperties.getDriverClassName());
+		config.setUsername(sourceProperties.getUsername());
+		config.setPassword(sourceProperties.getPassword());
+		config.setPoolName(sourceProperties.getHikari().getPoolName());
+		config.setMinimumIdle(sourceProperties.getHikari().getMinimumIdle());
+		config.setMaximumPoolSize(sourceProperties.getHikari().getMaximumPoolSize());
+		return new HikariDataSource(config);
 	}
 }
