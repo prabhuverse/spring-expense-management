@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %highlight(%-5level) %cyan(%logger).%method[%line] - %msg%n"/>
+
+    <!-- Console Appender with Colors -->
+    <!--appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender-->
+
+    <!-- App  Logs (Colored in File) -->
+    <appender name="APP_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/app.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/app-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Spring Boot Logs (Colored in File) -->
+    <appender name="SPRING_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/spring.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/spring-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Hibernate SQL Logs (Colored in File) -->
+    <appender name="HIBERNATE_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/hibernate.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/hibernate-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Define Logger for Spring Boot Logs -->
+    <logger name="org.springframework" level="info" additivity="false">
+        <appender-ref ref="SPRING_LOG" />
+    </logger>
+
+    <!-- Hibernate Logs - Log SQL Only to hibernate.log -->
+    <logger name="org.hibernate" level="debug" additivity="false">
+        <appender-ref ref="HIBERNATE_LOG" />
+    </logger>
+
+    <logger name="org.hibernate.SQL" level="debug" additivity="false">
+        <appender-ref ref="HIBERNATE_LOG" />
+    </logger>
+
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace" additivity="false">
+        <appender-ref ref="HIBERNATE_LOG" />
+    </logger>
+
+    <!-- Application Logs -->
+    <logger name="com.example.demo_mvn" level="info" additivity="false">
+        <appender-ref ref="APP_LOG" />
+    </logger>
+
+    <!-- Root Logger (To Log Everything) -->
+    <root level="info">
+        <!--appender-ref ref="SPRING_LOG"/>
+        <appender-ref ref="HIBERNATE_LOG"-->
+        <appender-ref ref="APP_LOG"/>
+    </root>
+</configuration>
