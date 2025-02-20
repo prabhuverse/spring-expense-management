@@ -14,14 +14,15 @@ import jakarta.persistence.Version;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.AllArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-// @Data
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

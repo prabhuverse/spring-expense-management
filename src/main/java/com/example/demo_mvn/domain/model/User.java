@@ -15,21 +15,24 @@ import jakarta.persistence.CascadeType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.ToString;
+import lombok.AllArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "users")
 @Getter
 @Setter
 @Builder
+@ToString(exclude = {"expenses"})
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 public class User {
 

@@ -46,6 +46,14 @@
         </encoder>
     </appender>
 
+    <appender name="ELASTIC_LOG" class="com.internetitem.logback.elasticsearch.ElasticsearchAppender">
+        <url>http://127.0.0.1:9200/_bulk</url>
+         <index>logs-%date{yyyy-MM-dd}</index>
+         <type>tester</type>
+         <encoder>
+            <pattern>%msg</pattern> <!-- This pattern is important, otherwise it won't be the raw Elasticsearch format anyomre -->
+         </encoder>
+    </appender>
     <!-- Define Logger for Spring Boot Logs -->
     <logger name="org.springframework" level="info" additivity="false">
         <appender-ref ref="SPRING_LOG" />
@@ -69,10 +77,12 @@
         <appender-ref ref="APP_LOG" />
     </logger>
 
+    <logger name="com.example.demo_mvn" level="info" additivity="false">
+        <appender-ref ref="ELASTIC_LOG" />
+    </logger>
+
     <!-- Root Logger (To Log Everything) -->
     <root level="info">
-        <!--appender-ref ref="SPRING_LOG"/>
-        <appender-ref ref="HIBERNATE_LOG"-->
         <appender-ref ref="APP_LOG"/>
     </root>
 </configuration>
