@@ -24,6 +24,7 @@ public class DataSourceLogger {
 		log.info("DataSource URL {}", dataSource.getConnection().getMetaData());
 	}
 
+
 	@Scheduled(fixedRate = 2 * 60 * 1000)
 	public void logHikariDataSource() {
 		if (dataSource instanceof HikariDataSource) {
