@@ -19,7 +19,7 @@ public class CustomScopeBeanFactoryPostProcessor implements BeanFactoryPostProce
 			String beanClassName = beanFactory.getBeanDefinition(beanName).getBeanClassName();
 			if (StringUtils.isNotBlank(beanClassName) && StringUtils.startsWith(beanClassName, DEMO_MVN_PREFIX)) {
 				BeanDefinition beanDefinition = beanFactory.getBeanDefinition(beanName);
-				log.info("Custom Scope BeanPostFactoryProcessor {}", beanName);
+				log.debug("Custom Scope BeanPostFactoryProcessor {}", beanName);
 				beanDefinition.setScope(BeanDefinition.SCOPE_PROTOTYPE);
 				// beanDefinition.setLazyInit(true);
 				beanDefinition.setAutowireCandidate(true);
