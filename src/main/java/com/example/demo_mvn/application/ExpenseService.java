@@ -47,7 +47,7 @@ public class ExpenseService {
 		List<ExpenseDTO> expenseDTOS = new ArrayList<>();
 		if (!CollectionUtils.isEmpty(expenses)) {
 			for (Expense expense : expenses) {
-				expense.getUser().setExpenses(null);
+				//expense.getUser().setExpenses(null);
 				expenseDTOS.add(entityMappers.toExpenseDTO(expense));
 			}
 		}

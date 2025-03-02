@@ -51,7 +51,7 @@ public class Expense {
 	private BigDecimal amount;
 
 
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;

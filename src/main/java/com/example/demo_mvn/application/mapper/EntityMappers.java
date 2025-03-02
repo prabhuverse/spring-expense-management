@@ -15,7 +15,8 @@ public class EntityMappers {
 
 	public ExpenseDTO toExpenseDTO(Expense expense) {
 		return ExpenseDTO.builder().id(expense.getId()).category(expense.getCategory()).amount(expense.getAmount())
-				.createdOn(expense.getCreatedOn()).description(expense.getDescription()).build();
+				.createdOn(expense.getCreatedOn()).description(expense.getDescription())
+				.user(toUserDTO(expense.getUser())).build();
 	}
 
 	public Expense toExpenseEntity(ExpenseDTO dto) {
