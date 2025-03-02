@@ -26,7 +26,7 @@ public class UserService {
 
 	public Optional<UserDTO> registerUser(final UserDTO userDTO) {
 		Optional<UserDTO> userResponse = Optional.empty();
-		User user = entityMappers.toUser(userDTO);
+		User user = entityMappers.toUserEntity(userDTO);
 		try {
 			user = userRepository.save(user);
 			log.info("Persisted user object {}", user);

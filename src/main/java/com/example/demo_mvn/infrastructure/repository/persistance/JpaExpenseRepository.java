@@ -3,8 +3,7 @@ package com.example.demo_mvn.infrastructure.repository.persistance;
 import com.example.demo_mvn.domain.model.Expense;
 import com.example.demo_mvn.domain.model.ExpenseCategory;
 import com.example.demo_mvn.domain.model.repository.ExpenseRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.Optional;
 
 
 // implements the technical details
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Repository
 public class JpaExpenseRepository implements ExpenseRepository {
 

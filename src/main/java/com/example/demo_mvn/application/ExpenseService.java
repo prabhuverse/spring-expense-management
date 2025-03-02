@@ -1,6 +1,5 @@
 package com.example.demo_mvn.application;
 
-
 import com.example.demo_mvn.application.dto.ExpenseDTO;
 import com.example.demo_mvn.application.mapper.EntityMappers;
 import com.example.demo_mvn.domain.model.Expense;
@@ -31,7 +30,7 @@ public class ExpenseService {
 	UserService userService;
 
 	public ExpenseDTO createExpense(ExpenseDTO expenseDTO) {
-		Expense expense = entityMappers.toEntity(expenseDTO);
+		Expense expense = entityMappers.toExpenseEntity(expenseDTO);
 		expense.setUser(userService.findUserById(expense.getUser().getId()));
 		try {
 			expense = repository.save(expense);
@@ -40,7 +39,7 @@ public class ExpenseService {
 			log.error("unable to persist expense object {} cause ", expense, e);
 			return null;
 		}
-		return entityMappers.toDTO(expense);
+		return entityMappers.toExpenseDTO(expense);
 	}
 
 	public List<ExpenseDTO> listExpenseByType(ExpenseCategory category) {
@@ -49,7 +48,7 @@ public class ExpenseService {
 		if (!CollectionUtils.isEmpty(expenses)) {
 			for (Expense expense : expenses) {
 				expense.getUser().setExpenses(null);
-				expenseDTOS.add(entityMappers.toDTO(expense));
+				expenseDTOS.add(entityMappers.toExpenseDTO(expense));
 			}
 		}
 		return expenseDTOS;
@@ -60,7 +59,7 @@ public class ExpenseService {
 		if (expense.isPresent()) {
 			repository.deleteById(id);
 			log.info("Expense delete {}", id);
-			return entityMappers.toDTO(expense.get());
+			return entityMappers.toExpenseDTO(expense.get());
 		}
 		return null;
 	}
@@ -69,7 +68,7 @@ public class ExpenseService {
 		Optional<Expense> expense = repository.findById(id);
 		if (expense.isPresent()) {
 			log.info("Expense found by {}", id);
-			return entityMappers.toDTO(expense.get());
+			return entityMappers.toExpenseDTO(expense.get());
 		}
 		return null;
 	}
