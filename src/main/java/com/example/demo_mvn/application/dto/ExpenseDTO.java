@@ -2,14 +2,12 @@ package com.example.demo_mvn.application.dto;
 
 import com.example.demo_mvn.domain.model.ExpenseCategory;
 import com.example.demo_mvn.domain.model.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter

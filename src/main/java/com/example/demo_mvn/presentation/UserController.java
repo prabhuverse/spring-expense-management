@@ -34,12 +34,7 @@ public class UserController {
 	public ResponseEntity<ApiResponse<UserDTO>> registerUser(@RequestBody UserDTO userDTO) {
 		log.info("User register request recieved {}", userDTO);
 		Optional<UserDTO> resp = userService.registerUser(userDTO);
-		ApiResponse<UserDTO> response = null;
-		if (resp.isPresent()) {
-			response = new ApiResponse<>(HttpStatus.CREATED, "user created", userDTO);
-		} else {
-			response = new ApiResponse<>(HttpStatus.OK, "user not created", userDTO);
-		}
+		ApiResponse<UserDTO> response = new ApiResponse<>(HttpStatus.CREATED, "user created", resp.get());
 		return ResponseEntity.ok(response);
 	}
 

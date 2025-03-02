@@ -32,6 +32,7 @@ public class UserService {
 			userResponse = Optional.of(entityMappers.toUserDTO(user));
 		} catch (DataIntegrityViolationException e) {
 			log.error("unable to persist user object {} cause ", user, e);
+			throw e;
 		}
 		return userResponse;
 	}

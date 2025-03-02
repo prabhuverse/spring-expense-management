@@ -1,10 +1,7 @@
 package com.example.demo_mvn.application.dto;
 
 import com.example.demo_mvn.infrastructure.spring.annotation.MaskField;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,6 +10,7 @@ import java.util.List;
 @Setter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO {
 
 	private Long id;
