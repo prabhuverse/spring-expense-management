@@ -1,12 +1,34 @@
 package com.example.demo_mvn.application.dto;
 
+import com.example.demo_mvn.infrastructure.spring.annotation.MaskField;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record UserDTO(Long id, String email, String password, String name, List<ExpenseDTO> expenses,
-		LocalDateTime credatedOn, LocalDateTime updatedOn, Integer version) {
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+public class UserDTO {
 
-	// public UserDTO(){
-	// this(0L,"test.test.com","test@123","Test Expense",null,LocalDate.now());
-	// }
+	private Long id;
+
+	private String email;
+
+	@MaskField
+	private String password;
+
+	private String name;
+
+	private List<ExpenseDTO> expenses;
+
+	private LocalDateTime credatedOn;
+
+	private LocalDateTime updatedOn;
+
+	private Integer version;
 }

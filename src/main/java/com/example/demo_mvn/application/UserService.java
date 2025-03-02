@@ -1,7 +1,7 @@
 package com.example.demo_mvn.application;
 
 import com.example.demo_mvn.application.dto.UserDTO;
-import com.example.demo_mvn.application.mapper.UserMapper;
+import com.example.demo_mvn.application.mapper.EntityMappers;
 import com.example.demo_mvn.domain.model.User;
 import com.example.demo_mvn.domain.model.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -22,15 +22,15 @@ public class UserService {
 	UserRepository userRepository;
 
 	@Autowired
-	UserMapper userMapper;
+	EntityMappers entityMappers;
 
 	public Optional<UserDTO> registerUser(final UserDTO userDTO) {
 		Optional<UserDTO> userResponse = Optional.empty();
-		User user = userMapper.toUser(userDTO);
+		User user = entityMappers.toUser(userDTO);
 		try {
 			user = userRepository.save(user);
 			log.info("Persisted user object {}", user);
-			userResponse = Optional.of(userMapper.toUserDTO(user));
+			userResponse = Optional.of(entityMappers.toUserDTO(user));
 		} catch (DataIntegrityViolationException e) {
 			log.error("unable to persist user object {} cause ", user, e);
 		}
@@ -40,7 +40,7 @@ public class UserService {
 	public UserDTO findUserByEmail(final String email) {
 		Optional<User> user = userRepository.findByEmail(email);
 		if (user.isPresent())
-			return userMapper.toUserDTO(user.get());
+			return entityMappers.toUserDTO(user.get());
 		return null;
 	}
 
@@ -49,13 +49,13 @@ public class UserService {
 	}
 
 	public UserDTO updateUser(final UserDTO userDTO) {
-		User currentUser = userRepository.findByEmail(userDTO.email()).get();
-		if (StringUtils.isNotBlank(userDTO.name()))
-			currentUser.setName(userDTO.name());
-		if (StringUtils.isNotBlank(userDTO.password()))
-			currentUser.setPassword(userDTO.password());
-		log.info("Current User Before updating {} and useroj {}", currentUser, userDTO);
+		User currentUser = userRepository.findByEmail(userDTO.getEmail()).get();
+		if (StringUtils.isNotBlank(userDTO.getName()))
+			currentUser.setName(userDTO.getName());
+		if (StringUtils.isNotBlank(userDTO.getPassword()))
+			currentUser.setPassword(userDTO.getPassword());
+		log.info("Current User Before updating {} and user {}", currentUser, userDTO);
 		User updateUser = userRepository.save(currentUser);
-		return userMapper.toUserDTO(updateUser);
+		return entityMappers.toUserDTO(updateUser);
 	}
 }

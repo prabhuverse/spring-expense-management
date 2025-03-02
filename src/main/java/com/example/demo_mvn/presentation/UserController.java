@@ -54,7 +54,7 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.PUT, path = "/update", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<ApiResponse<UserDTO>> updateUser(@RequestBody UserDTO userDTO) {
 		log.info("Update User object {}", userDTO);
-		if (StringUtils.isBlank(userDTO.email()))
+		if (StringUtils.isBlank(userDTO.getEmail()))
 			return ResponseEntity.notFound().build();
 		UserDTO updatedUser = userService.updateUser(userDTO);
 		ApiResponse<UserDTO> response = new ApiResponse<>(HttpStatus.ACCEPTED, "user update", updatedUser);

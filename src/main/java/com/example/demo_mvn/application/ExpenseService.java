@@ -2,7 +2,7 @@ package com.example.demo_mvn.application;
 
 
 import com.example.demo_mvn.application.dto.ExpenseDTO;
-import com.example.demo_mvn.application.mapper.ExpenseMapper;
+import com.example.demo_mvn.application.mapper.EntityMappers;
 import com.example.demo_mvn.domain.model.Expense;
 import com.example.demo_mvn.domain.model.ExpenseCategory;
 import com.example.demo_mvn.domain.model.repository.ExpenseRepository;
@@ -25,13 +25,13 @@ public class ExpenseService {
 	ExpenseRepository repository;
 
 	@Autowired
-	ExpenseMapper expenseMapper;
+	EntityMappers entityMappers;
 
 	@Autowired
 	UserService userService;
 
 	public ExpenseDTO createExpense(ExpenseDTO expenseDTO) {
-		Expense expense = expenseMapper.toEntity(expenseDTO);
+		Expense expense = entityMappers.toEntity(expenseDTO);
 		expense.setUser(userService.findUserById(expense.getUser().getId()));
 		try {
 			expense = repository.save(expense);
@@ -40,7 +40,7 @@ public class ExpenseService {
 			log.error("unable to persist expense object {} cause ", expense, e);
 			return null;
 		}
-		return expenseMapper.toDTO(expense);
+		return entityMappers.toDTO(expense);
 	}
 
 	public List<ExpenseDTO> listExpenseByType(ExpenseCategory category) {
@@ -48,7 +48,8 @@ public class ExpenseService {
 		List<ExpenseDTO> expenseDTOS = new ArrayList<>();
 		if (!CollectionUtils.isEmpty(expenses)) {
 			for (Expense expense : expenses) {
-				expenseDTOS.add(expenseMapper.toDTO(expense));
+				expense.getUser().setExpenses(null);
+				expenseDTOS.add(entityMappers.toDTO(expense));
 			}
 		}
 		return expenseDTOS;
@@ -59,7 +60,7 @@ public class ExpenseService {
 		if (expense.isPresent()) {
 			repository.deleteById(id);
 			log.info("Expense delete {}", id);
-			return expenseMapper.toDTO(expense.get());
+			return entityMappers.toDTO(expense.get());
 		}
 		return null;
 	}
@@ -68,7 +69,7 @@ public class ExpenseService {
 		Optional<Expense> expense = repository.findById(id);
 		if (expense.isPresent()) {
 			log.info("Expense found by {}", id);
-			return expenseMapper.toDTO(expense.get());
+			return entityMappers.toDTO(expense.get());
 		}
 		return null;
 	}
