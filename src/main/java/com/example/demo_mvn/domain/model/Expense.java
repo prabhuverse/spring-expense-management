@@ -1,6 +1,7 @@
 package com.example.demo_mvn.domain.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -50,6 +51,7 @@ public class Expense {
 	private BigDecimal amount;
 
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
