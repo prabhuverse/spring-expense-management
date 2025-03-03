@@ -37,7 +37,11 @@ public class EntityMappers {
 	}
 
 	public UserDTO toUserDTO(User user) {
-		return new UserDTO(user.getId(), user.getEmail(), user.getPassword(), user.getName(), new ArrayList<>(),
+		List<ExpenseDTO> expenseDTOS = new ArrayList<>();
+		if (!CollectionUtils.isEmpty(user.getExpenses())) {
+			user.getExpenses().forEach(expense -> expenseDTOS.add(toExpenseDTO(expense)));
+		}
+		return new UserDTO(user.getId(), user.getEmail(), user.getPassword(), user.getName(), expenseDTOS,
 				user.getCreatedOn(), user.getUpdateOn(), user.getVersion());
 	}
 }
