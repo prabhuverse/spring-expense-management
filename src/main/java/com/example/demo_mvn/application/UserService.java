@@ -4,10 +4,12 @@ import com.example.demo_mvn.application.dto.UserDTO;
 import com.example.demo_mvn.application.mapper.EntityMappers;
 import com.example.demo_mvn.domain.model.User;
 import com.example.demo_mvn.domain.model.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,17 +17,19 @@ import java.util.Optional;
 // application service - orchestrates/delegates to the domain layer
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-	@Autowired
-	UserRepository userRepository;
+	private final UserRepository userRepository;
 
-	@Autowired
-	EntityMappers entityMappers;
+	private final EntityMappers entityMappers;
+
+	private final PasswordEncoder passwordEncoder;
 
 	public Optional<UserDTO> registerUser(final UserDTO userDTO) {
 		Optional<UserDTO> userResponse = Optional.empty();
 		User user = entityMappers.toUserEntity(userDTO);
+		user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 		try {
 			user = userRepository.save(user);
 			log.info("Persisted user object {}", user);
@@ -52,8 +56,9 @@ public class UserService {
 		User currentUser = userRepository.findByEmail(userDTO.getEmail()).get();
 		if (StringUtils.isNotBlank(userDTO.getName()))
 			currentUser.setName(userDTO.getName());
-		if (StringUtils.isNotBlank(userDTO.getPassword()))
-			currentUser.setPassword(userDTO.getPassword());
+		if (StringUtils.isNotBlank(userDTO.getPassword())) {
+			currentUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+		}
 		log.info("Current User Before updating {} and user {}", currentUser, userDTO);
 		User updateUser = userRepository.save(currentUser);
 		return entityMappers.toUserDTO(updateUser);
