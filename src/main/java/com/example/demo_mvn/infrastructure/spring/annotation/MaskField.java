@@ -10,8 +10,8 @@ import java.lang.annotation.Target;
 @Target(value = ElementType.FIELD)
 public @interface MaskField {
 
-	String maskWith() default "********";
+    String maskWith() default "********";
 
-	int length() default 0;
+    int length() default 0;
 
 }

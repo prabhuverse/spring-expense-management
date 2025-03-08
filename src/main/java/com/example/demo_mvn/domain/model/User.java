@@ -12,6 +12,7 @@ import jakarta.persistence.UniqueConstraint;
 import jakarta.persistence.Table;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 import lombok.AllArgsConstructor;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -36,33 +38,33 @@ import java.util.List;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(nullable = false)
-	private String email;
+    @Column(nullable = false)
+    private String email;
 
-	@Column(nullable = false)
-	private String password;
+    @Column(nullable = false)
+    private String password;
 
-	@Column(nullable = false)
-	private String name;
+    @Column(nullable = false)
+    private String name;
 
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-	private List<Expense> expenses;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Expense> expenses;
 
-	@CreationTimestamp
-	@Column
-	private LocalDateTime createdOn;
+    @CreationTimestamp
+    @Column
+    private LocalDateTime createdOn;
 
-	@UpdateTimestamp
-	@Column
-	private LocalDateTime updateOn;
+    @UpdateTimestamp
+    @Column
+    private LocalDateTime updateOn;
 
-	@Version
-	@Column
-	private Integer version;
+    @Version
+    @Column
+    private Integer version;
 }
 

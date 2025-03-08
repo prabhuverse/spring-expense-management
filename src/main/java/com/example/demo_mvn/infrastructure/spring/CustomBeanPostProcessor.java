@@ -1,6 +1,7 @@
 package com.example.demo_mvn.infrastructure.spring;
 
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
@@ -8,18 +9,18 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 @Slf4j
 public class CustomBeanPostProcessor implements BeanPostProcessor {
 
-	@Override
-	public Object postProcessBeforeInitialization(Object bean, String beanName) {
-		// set custom value or do DI works
-		log.debug("Bean-postProcessBeforeInitialization {}", beanName);
-		return bean;
-	}
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) {
+        // set custom value or do DI works
+        log.debug("Bean-postProcessBeforeInitialization {}", beanName);
+        return bean;
+    }
 
 
-	@Override
-	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-		log.debug("Bean-postProcessAfterInitialization {}", beanName);
-		return bean;
-	}
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        log.debug("Bean-postProcessAfterInitialization {}", beanName);
+        return bean;
+    }
 
 }

@@ -13,21 +13,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class CustomSpringApplicationConfiguraion {
 
-	@Bean
-	public BeanFactoryPostProcessor customScopeBeanPostProcessorFactory() {
-		return new CustomScopeBeanFactoryPostProcessor();
-	}
+    @Bean
+    public BeanFactoryPostProcessor customScopeBeanPostProcessorFactory() {
+        return new CustomScopeBeanFactoryPostProcessor();
+    }
 
-	@Bean
-	public BeanPostProcessor customBeanPostProcessor() {
-		return new CustomBeanPostProcessor();
-	}
+    @Bean
+    public BeanPostProcessor customBeanPostProcessor() {
+        return new CustomBeanPostProcessor();
+    }
 
-	@Bean
-	public ObjectMapper objectMapper() {
-		return new ObjectMapper().registerModule(new JavaTimeModule())
-				.configure(com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-	}
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper().registerModule(new JavaTimeModule())
+                .configure(com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

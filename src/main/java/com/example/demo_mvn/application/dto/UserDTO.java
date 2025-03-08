@@ -1,7 +1,11 @@
 package com.example.demo_mvn.application.dto;
 
 import com.example.demo_mvn.infrastructure.spring.annotation.MaskField;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 import java.util.List;

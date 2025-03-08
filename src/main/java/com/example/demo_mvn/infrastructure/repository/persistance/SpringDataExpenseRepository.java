@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface SpringDataExpenseRepository extends JpaRepository<Expense, Long> {
 
-	List<Expense> findByCategory(ExpenseCategory category);
+    List<Expense> findByCategory(ExpenseCategory category);
 }

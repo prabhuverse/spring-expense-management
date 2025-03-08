@@ -8,13 +8,13 @@ import java.util.Optional;
 
 public interface ExpenseRepository {
 
-	Expense save(Expense expense);
+    Expense save(Expense expense);
 
-	Optional<Expense> findById(Long id);
+    Optional<Expense> findById(Long id);
 
-	List<Expense> findAll();
+    List<Expense> findAll();
 
-	List<Expense> findByCategory(ExpenseCategory category);
+    List<Expense> findByCategory(ExpenseCategory category);
 
-	void deleteById(Long id);
+    void deleteById(Long id);
 }

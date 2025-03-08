@@ -12,12 +12,14 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Version;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.AllArgsConstructor;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
@@ -32,33 +34,33 @@ import java.time.LocalDate;
 @Setter
 public class Expense {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
-	private ExpenseCategory category;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ExpenseCategory category;
 
-	@CreationTimestamp
-	@Column(name = "createdOn", nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
-	private LocalDate createdOn;
+    @CreationTimestamp
+    @Column(name = "createdOn", nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    private LocalDate createdOn;
 
-	@Column(name = "description", nullable = false, length = 100)
-	private String description;
+    @Column(name = "description", nullable = false, length = 100)
+    private String description;
 
-	@Column(nullable = false, precision = 10, scale = 3)
-	private BigDecimal amount;
+    @Column(nullable = false, precision = 10, scale = 3)
+    private BigDecimal amount;
 
 
-	//@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+    //@JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-	@Version
-	@Column
-	private Integer version;
+    @Version
+    @Column
+    private Integer version;
 
 
 }

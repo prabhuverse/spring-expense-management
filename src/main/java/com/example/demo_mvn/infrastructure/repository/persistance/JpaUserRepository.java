@@ -1,6 +1,8 @@
 package com.example.demo_mvn.infrastructure.repository.persistance;
 
 
+import lombok.RequiredArgsConstructor;
+
 import com.example.demo_mvn.domain.model.User;
 import com.example.demo_mvn.domain.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,28 +13,28 @@ import java.util.Optional;
 
 // implements the technical details
 @Repository
+@RequiredArgsConstructor
 public class JpaUserRepository implements UserRepository {
 
-	@Autowired
-	SpringDataUserRepository userRepository;
+    private final SpringDataUserRepository userRepository;
 
-	@Override
-	public User save(User user) {
-		return userRepository.save(user);
-	}
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
+    }
 
-	@Override
-	public Optional<User> findByEmail(String email) {
-		return userRepository.findByEmail(email);
-	}
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
-	@Override
-	public Optional<User> findById(Long id) {
-		return userRepository.findById(id);
-	}
+    @Override
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
 
-	@Override
-	public List<User> findAll() {
-		return userRepository.findAll();
-	}
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 }
