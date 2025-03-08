@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,18 +23,16 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    private final EntityMappers entityMappers;
-
     private final PasswordEncoder passwordEncoder;
 
     public Optional<UserDTO> registerUser(final UserDTO userDTO) {
         Optional<UserDTO> userResponse = Optional.empty();
-        User user = entityMappers.toUserEntity(userDTO);
+        User user = EntityMappers.toUserEntity(userDTO);
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         try {
             user = userRepository.save(user);
             log.info("Persisted user object {}", user);
-            userResponse = Optional.of(entityMappers.toUserDTO(user));
+            userResponse = Optional.of(EntityMappers.toUserDTO(user));
         } catch (DataIntegrityViolationException e) {
             log.error("unable to persist user object {} cause ", user, e);
             throw e;
@@ -46,7 +43,7 @@ public class UserService {
     public UserDTO findUserByEmail(final String email) {
         Optional<User> user = userRepository.findByEmail(email);
         if (user.isPresent())
-            return entityMappers.toUserDTO(user.get());
+            return EntityMappers.toUserDTO(user.get());
         return null;
     }
 
@@ -63,6 +60,6 @@ public class UserService {
         }
         log.info("Current User Before updating {} and user {}", currentUser, userDTO);
         User updateUser = userRepository.save(currentUser);
-        return entityMappers.toUserDTO(updateUser);
+        return EntityMappers.toUserDTO(updateUser);
     }
 }

@@ -26,13 +26,10 @@ public class ExpenseService {
     ExpenseRepository repository;
 
     @Autowired
-    EntityMappers entityMappers;
-
-    @Autowired
     UserService userService;
 
     public ExpenseDTO createExpense(ExpenseDTO expenseDTO) {
-        Expense expense = entityMappers.toExpenseEntity(expenseDTO);
+        Expense expense = EntityMappers.toExpenseEntity(expenseDTO);
         expense.setUser(userService.findUserById(expense.getUser().getId()));
         try {
             expense = repository.save(expense);
@@ -41,7 +38,7 @@ public class ExpenseService {
             log.error("unable to persist expense object {} cause ", expense, e);
             return null;
         }
-        return entityMappers.toExpenseDTO(expense);
+        return EntityMappers.toExpenseDTO(expense);
     }
 
     public List<ExpenseDTO> listExpenseByType(ExpenseCategory category) {
@@ -50,7 +47,7 @@ public class ExpenseService {
         if (!CollectionUtils.isEmpty(expenses)) {
             for (Expense expense : expenses) {
                 //expense.getUser().setExpenses(null);
-                expenseDTOS.add(entityMappers.toExpenseDTO(expense));
+                expenseDTOS.add(EntityMappers.toExpenseDTO(expense));
             }
         }
         return expenseDTOS;
@@ -61,7 +58,7 @@ public class ExpenseService {
         if (expense.isPresent()) {
             repository.deleteById(id);
             log.info("Expense delete {}", id);
-            return entityMappers.toExpenseDTO(expense.get());
+            return EntityMappers.toExpenseDTO(expense.get());
         }
         return null;
     }
@@ -70,7 +67,7 @@ public class ExpenseService {
         Optional<Expense> expense = repository.findById(id);
         if (expense.isPresent()) {
             log.info("Expense found by {}", id);
-            return entityMappers.toExpenseDTO(expense.get());
+            return EntityMappers.toExpenseDTO(expense.get());
         }
         return null;
     }
