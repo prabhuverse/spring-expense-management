@@ -1,2 +1,3 @@
 [Adding Basic Authentication] - https://github.com/prabhur24/demo-mvn/pull/4
 [#Add AuthenticationManager(DAOProvider)] - https://github.com/prabhur24/demo-mvn/pull/5
+[#Add MappedDiagnosticContext(email,ip) from SecurityContextHolder] - https://github.com/prabhur24/demo-mvn/pull/6

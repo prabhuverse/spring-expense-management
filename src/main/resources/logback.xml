@@ -2,7 +2,7 @@
 <configuration>
 
     <property name="LOG_PATTERN"
-              value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %highlight(%-5level) %cyan(%logger).%yellow(%method)[%line] - %msg%n"/>
+              value="%d{yyyy-MM-dd HH:mm:ss} [%X{email}] [%X{ip}] [%thread] %highlight(%-5level) %cyan(%logger).%yellow(%method)[%line] - %msg%n"/>
 
     <!-- Console Appender with Colors -->
     <!--appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
