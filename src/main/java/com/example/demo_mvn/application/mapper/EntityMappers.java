@@ -1,16 +1,17 @@
 package com.example.demo_mvn.application.mapper;
 
+import lombok.experimental.UtilityClass;
+
 import com.example.demo_mvn.application.dto.ExpenseDTO;
 import com.example.demo_mvn.application.dto.UserDTO;
 import com.example.demo_mvn.domain.model.Expense;
 import com.example.demo_mvn.domain.model.User;
-import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@UtilityClass
 public class EntityMappers {
 
     public ExpenseDTO toExpenseDTO(Expense expense) {

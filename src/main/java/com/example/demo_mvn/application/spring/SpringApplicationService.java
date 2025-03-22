@@ -3,8 +3,10 @@ package com.example.demo_mvn.application.spring;
 import com.example.demo_mvn.application.dto.spring.ControllerInfo;
 import com.example.demo_mvn.application.dto.spring.HandlerMethodInfo;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
@@ -15,6 +17,8 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
+@ConfigurationProperties
 public class SpringApplicationService {
 
     public Map<String, ControllerInfo> listMappingInfo(Map<RequestMappingInfo, HandlerMethod> handlerMethodMap) {

@@ -3,9 +3,11 @@ package com.example.demo_mvn.infrastructure.spring.security;
 import com.example.demo_mvn.application.spring.CustomUserDetailsService;
 import com.example.demo_mvn.domain.model.repository.UserRepository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+import com.example.demo_mvn.infrastructure.spring.filter.BasicAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +24,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @Slf4j
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
+
+    private final UserDetailsService userDetailsService;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Bean
     @SneakyThrows
@@ -35,7 +42,8 @@ public class WebSecurityConfig {
                     sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 })
                 .httpBasic(Customizer.withDefaults())
-                .anonymous(anonymous -> anonymous.disable());
+                .anonymous(anonymous -> anonymous.disable())
+                .addFilter(new BasicAuthenticationFilter(authenticationManager(userDetailsService, passwordEncoder)));
         return security.build();
     }
 
