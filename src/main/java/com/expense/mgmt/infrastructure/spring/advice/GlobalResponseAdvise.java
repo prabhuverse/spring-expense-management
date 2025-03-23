@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -69,6 +70,7 @@ public class GlobalResponseAdvise implements ResponseBodyAdvice<Object> {
                 token = JwtUtil.generateToken(userDTO);
             }
 
+            response.setStatusCode(httpStatus);
             return ResponseEntity.status(httpStatus).header("Authorization", token).body(apiResponse);
         }
     }

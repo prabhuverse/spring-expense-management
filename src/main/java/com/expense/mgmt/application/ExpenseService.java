@@ -31,13 +31,8 @@ public class ExpenseService {
     public ExpenseDTO createExpense(ExpenseDTO expenseDTO) {
         Expense expense = EntityMappers.toExpenseEntity(expenseDTO);
         expense.setUser(userService.findUserById(expense.getUser().getId()));
-        try {
-            expense = repository.save(expense);
-            log.info("Persisted expense object {}", expense);
-        } catch (DataIntegrityViolationException e) {
-            log.error("unable to persist expense object {} cause ", expense, e);
-            return null;
-        }
+        expense = repository.save(expense);
+        log.info("Persisted expense object {}", expense);
         return EntityMappers.toExpenseDTO(expense);
     }
 
