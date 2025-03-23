@@ -1,6 +1,6 @@
 package com.expense.mgmt.infrastructure.repository.expense.persistance;
 
-import com.expense.mgmt.domain.model.Expense;
+import com.expense.mgmt.infrastructure.repository.persistance.expense.Expense;
 import com.expense.mgmt.domain.model.ExpenseCategory;
 import com.expense.mgmt.domain.model.repository.ExpenseRepository;
 

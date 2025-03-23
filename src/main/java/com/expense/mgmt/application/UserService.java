@@ -2,7 +2,7 @@ package com.expense.mgmt.application;
 
 import com.expense.mgmt.application.dto.UserDTO;
 import com.expense.mgmt.application.mapper.EntityMappers;
-import com.expense.mgmt.domain.model.User;
+import com.expense.mgmt.infrastructure.repository.persistance.user.User;
 import com.expense.mgmt.domain.model.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;

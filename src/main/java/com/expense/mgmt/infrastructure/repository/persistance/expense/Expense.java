@@ -1,6 +1,8 @@
-package com.expense.mgmt.domain.model;
+package com.expense.mgmt.infrastructure.repository.persistance.expense;
 
 
+import com.expense.mgmt.domain.model.ExpenseCategory;
+import com.expense.mgmt.infrastructure.repository.persistance.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -60,6 +62,5 @@ public class Expense {
     @Version
     @Column
     private Integer version;
-
 
 }

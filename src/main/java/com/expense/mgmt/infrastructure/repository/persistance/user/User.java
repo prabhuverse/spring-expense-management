@@ -1,6 +1,7 @@
-package com.expense.mgmt.domain.model;
+package com.expense.mgmt.infrastructure.repository.persistance.user;
 
 
+import com.expense.mgmt.infrastructure.repository.persistance.expense.Expense;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;

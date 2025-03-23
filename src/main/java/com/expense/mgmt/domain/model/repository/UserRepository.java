@@ -1,6 +1,6 @@
 package com.expense.mgmt.domain.model.repository;
 
-import com.expense.mgmt.domain.model.User;
+import com.expense.mgmt.infrastructure.repository.persistance.user.User;
 
 import java.util.List;
 import java.util.Optional;

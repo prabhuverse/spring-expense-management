@@ -1,6 +1,6 @@
 package com.expense.mgmt.application.spring;
 
-import com.expense.mgmt.domain.model.User;
+import com.expense.mgmt.infrastructure.repository.persistance.user.User;
 import com.expense.mgmt.domain.model.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;

@@ -3,7 +3,7 @@ package com.expense.mgmt.infrastructure.repository.user.persistance;
 
 import lombok.RequiredArgsConstructor;
 
-import com.expense.mgmt.domain.model.User;
+import com.expense.mgmt.infrastructure.repository.persistance.user.User;
 import com.expense.mgmt.domain.model.repository.UserRepository;
 import org.springframework.stereotype.Repository;
 

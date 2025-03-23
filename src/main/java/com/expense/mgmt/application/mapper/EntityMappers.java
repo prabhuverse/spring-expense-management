@@ -4,8 +4,8 @@ import lombok.experimental.UtilityClass;
 
 import com.expense.mgmt.application.dto.ExpenseDTO;
 import com.expense.mgmt.application.dto.UserDTO;
-import com.expense.mgmt.domain.model.Expense;
-import com.expense.mgmt.domain.model.User;
+import com.expense.mgmt.infrastructure.repository.persistance.expense.Expense;
+import com.expense.mgmt.infrastructure.repository.persistance.user.User;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;

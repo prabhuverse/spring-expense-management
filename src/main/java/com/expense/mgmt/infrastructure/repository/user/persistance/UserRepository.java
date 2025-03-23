@@ -1,6 +1,6 @@
 package com.expense.mgmt.infrastructure.repository.user.persistance;
 
-import com.expense.mgmt.domain.model.User;
+import com.expense.mgmt.infrastructure.repository.persistance.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
