@@ -1,4 +1,4 @@
-package com.expense.mgmt.infrastructure.repository.persistance;
+package com.expense.mgmt.infrastructure.repository.expense.persistance;
 
 import com.expense.mgmt.domain.model.Expense;
 import com.expense.mgmt.domain.model.ExpenseCategory;
