@@ -2,7 +2,7 @@ package com.expense.mgmt.infrastructure.repository.persistance.expense;
 
 
 import com.expense.mgmt.domain.model.ExpenseCategory;
-import com.expense.mgmt.infrastructure.repository.persistance.user.User;
+import com.expense.mgmt.infrastructure.repository.persistance.user.UserEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Version;
 
 import lombok.Getter;
@@ -33,7 +34,7 @@ import java.time.LocalDate;
 @Entity(name = "expenses")
 @Getter
 @Setter
-public class Expense {
+public class ExpenseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,10 +58,15 @@ public class Expense {
     //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserEntity user;
+
+    @OneToOne
+    @JoinColumn(name = "file_id")
+    private ExpenseFileEntity file;
 
     @Version
     @Column
     private Integer version;
+
 
 }

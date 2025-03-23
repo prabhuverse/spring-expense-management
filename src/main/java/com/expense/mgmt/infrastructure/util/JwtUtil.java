@@ -4,7 +4,7 @@ import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 
-import com.expense.mgmt.application.dto.UserDTO;
+import com.expense.mgmt.domain.model.dto.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -29,7 +29,7 @@ public class JwtUtil {
     }
 
     @SneakyThrows
-    public String generateToken(final UserDTO userDTO) {
+    public String generateToken(final User userDTO) {
         userDTO.setPassword(null);
         LocalDateTime currentTime = LocalDateTime.now();
         return Jwts.builder()

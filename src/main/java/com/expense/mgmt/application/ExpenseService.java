@@ -1,8 +1,8 @@
 package com.expense.mgmt.application;
 
-import com.expense.mgmt.application.dto.ExpenseDTO;
-import com.expense.mgmt.application.mapper.EntityMappers;
-import com.expense.mgmt.infrastructure.repository.persistance.expense.Expense;
+import com.expense.mgmt.domain.model.dto.Expense;
+import com.expense.mgmt.infrastructure.repository.persistance.EntityMappers;
+import com.expense.mgmt.infrastructure.repository.persistance.expense.ExpenseEntity;
 import com.expense.mgmt.domain.model.ExpenseCategory;
 import com.expense.mgmt.domain.model.repository.ExpenseRepository;
 
@@ -10,11 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @Slf4j
@@ -27,42 +24,23 @@ public class ExpenseService {
     @Autowired
     UserService userService;
 
-    public ExpenseDTO createExpense(ExpenseDTO expenseDTO) {
-        Expense expense = EntityMappers.toExpenseEntity(expenseDTO);
-        expense.setUser(userService.findUserById(expense.getUser().getId()));
-        expense = repository.save(expense);
+    public Expense createExpense(Expense expense) {
+        ExpenseEntity expenseEntity = EntityMappers.toExpenseEntity(expense);
+        expenseEntity.setUser(EntityMappers.toUserEntity(userService.findUserById(expense.getUser().getId())));
+        expense = repository.save(expenseEntity);
         log.info("Persisted expense object {}", expense);
-        return EntityMappers.toExpenseDTO(expense);
+        return expense;
     }
 
-    public List<ExpenseDTO> listExpenseByType(ExpenseCategory category) {
-        List<Expense> expenses = repository.findByCategory(category);
-        List<ExpenseDTO> expenseDTOS = new ArrayList<>();
-        if (!CollectionUtils.isEmpty(expenses)) {
-            for (Expense expense : expenses) {
-                //expense.getUser().setExpenses(null);
-                expenseDTOS.add(EntityMappers.toExpenseDTO(expense));
-            }
-        }
-        return expenseDTOS;
+    public List<Expense> listExpenseByType(ExpenseCategory category) {
+        return repository.findByCategory(category);
     }
 
-    public ExpenseDTO deleteExpense(Long id) {
-        Optional<Expense> expense = repository.findById(id);
-        if (expense.isPresent()) {
-            repository.deleteById(id);
-            log.info("Expense delete {}", id);
-            return EntityMappers.toExpenseDTO(expense.get());
-        }
-        return null;
+    public Expense deleteExpense(Long id) {
+        return repository.findById(id).get();
     }
 
-    public ExpenseDTO getExpenseById(Long id) {
-        Optional<Expense> expense = repository.findById(id);
-        if (expense.isPresent()) {
-            log.info("Expense found by {}", id);
-            return EntityMappers.toExpenseDTO(expense.get());
-        }
-        return null;
+    public Expense getExpenseById(Long id) {
+        return repository.findById(id).get();
     }
 }

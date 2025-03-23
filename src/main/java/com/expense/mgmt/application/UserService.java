@@ -1,13 +1,13 @@
 package com.expense.mgmt.application;
 
-import com.expense.mgmt.application.dto.UserDTO;
-import com.expense.mgmt.application.mapper.EntityMappers;
-import com.expense.mgmt.infrastructure.repository.persistance.user.User;
+import com.expense.mgmt.domain.model.dto.User;
+import com.expense.mgmt.infrastructure.repository.persistance.EntityMappers;
 import com.expense.mgmt.domain.model.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import com.expense.mgmt.infrastructure.repository.persistance.user.UserEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,33 +25,21 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public Optional<UserDTO> registerUser(final UserDTO userDTO) {
-        Optional<UserDTO> userResponse = Optional.empty();
-        User user = EntityMappers.toUserEntity(userDTO);
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        try {
-            user = userRepository.save(user);
-            log.info("Persisted user object {}", user);
-            userResponse = Optional.of(EntityMappers.toUserDTO(user));
-        } catch (DataIntegrityViolationException e) {
-            log.error("unable to persist user object {} cause ", user, e);
-            throw e;
-        }
-        return userResponse;
+    public User registerUser(final User user) {
+        userRepository.save(user);
+        log.info("Persisted user object {}", user);
+        return user;
     }
 
-    public UserDTO findUserByEmail(final String email) {
-        Optional<User> user = userRepository.findByEmail(email);
-        if (user.isPresent())
-            return EntityMappers.toUserDTO(user.get());
-        return null;
+    public User findUserByEmail(final String email) {
+        return userRepository.findByEmail(email).get();
     }
 
     public User findUserById(final Long id) {
         return userRepository.findById(id).get();
     }
 
-    public UserDTO updateUser(final UserDTO userDTO) {
+    public User updateUser(final User userDTO) {
         User currentUser = userRepository.findByEmail(userDTO.getEmail()).get();
         if (StringUtils.isNotBlank(userDTO.getName()))
             currentUser.setName(userDTO.getName());
@@ -59,7 +47,6 @@ public class UserService {
             currentUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         }
         log.info("Current User Before updating {} and user {}", currentUser, userDTO);
-        User updateUser = userRepository.save(currentUser);
-        return EntityMappers.toUserDTO(updateUser);
+        return userRepository.save(currentUser);
     }
 }

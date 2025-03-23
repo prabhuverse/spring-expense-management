@@ -1,4 +1,4 @@
-package com.expense.mgmt.application.dto;
+package com.expense.mgmt.domain.model.dto;
 
 import com.expense.mgmt.infrastructure.spring.annotation.MaskField;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class User {
 
 	private Long id;
 
@@ -26,7 +26,7 @@ public class UserDTO {
 
 	private String name;
 
-	private List<ExpenseDTO> expenses;
+	private List<Expense> expenses;
 
 	private LocalDateTime credatedOn;
 
