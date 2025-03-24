@@ -1,15 +1,15 @@
 package com.expense.mgmt.infrastructure.repository.user.persistance;
 
 
-import com.expense.mgmt.infrastructure.repository.persistance.user.User;
+import com.expense.mgmt.infrastructure.repository.persistance.user.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface SpringDataUserRepository extends JpaRepository<User, Long> {
+public interface SpringDataUserRepository extends JpaRepository<UserEntity, Long> {
 
-    Optional<User> findByEmail(String email);
+    Optional<UserEntity> findByEmail(String email);
 
 }

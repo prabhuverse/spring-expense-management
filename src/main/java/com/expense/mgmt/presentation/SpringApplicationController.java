@@ -1,6 +1,6 @@
 package com.expense.mgmt.presentation;
 
-import com.expense.mgmt.application.dto.spring.ControllerInfo;
+import com.expense.mgmt.domain.model.dto.spring.ControllerInfo;
 import com.expense.mgmt.application.spring.SpringApplicationService;
 import com.expense.mgmt.presentation.rest.ApiResponse;
 import org.apache.commons.lang3.StringUtils;

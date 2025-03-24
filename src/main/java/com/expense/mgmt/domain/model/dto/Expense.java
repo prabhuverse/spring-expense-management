@@ -1,4 +1,4 @@
-package com.expense.mgmt.application.dto;
+package com.expense.mgmt.domain.model.dto;
 
 import com.expense.mgmt.domain.model.ExpenseCategory;
 
@@ -16,11 +16,21 @@ import java.time.LocalDate;
 @Builder
 @Getter
 @Setter
-public class ExpenseDTO {
+public class Expense {
     private Long id;
+
     private ExpenseCategory category;
+
     private String description;
+
     private BigDecimal amount;
+
     private LocalDate createdOn;
-    private UserDTO user;
+
+    private User user;
+
+    private ExpenseFile expenseFile;
+
+    private Integer version;
+
 }

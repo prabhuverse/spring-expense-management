@@ -1,7 +1,7 @@
 package com.expense.mgmt.infrastructure.repository.persistance.user;
 
 
-import com.expense.mgmt.infrastructure.repository.persistance.expense.Expense;
+import com.expense.mgmt.infrastructure.repository.persistance.expense.ExpenseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
@@ -37,7 +37,7 @@ import java.util.List;
 @Builder
 @ToString(exclude = {"expenses"})
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,7 +54,7 @@ public class User {
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Expense> expenses;
+    private List<ExpenseEntity> expenses;
 
     @CreationTimestamp
     @Column

@@ -2,7 +2,7 @@ package com.expense.mgmt.presentation;
 
 
 import com.expense.mgmt.application.UserService;
-import com.expense.mgmt.application.dto.UserDTO;
+import com.expense.mgmt.domain.model.dto.User;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,20 +30,19 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.POST, path = "/register", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public UserDTO registerUser(@RequestBody UserDTO userDTO) {
-        log.info("User register request recieved {}", userDTO);
-        Optional<UserDTO> resp = userService.registerUser(userDTO);
-        return resp.get();
+    public User registerUser(@RequestBody User user) {
+        log.info("User register request recieved {}", user);
+        return userService.registerUser(user);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{email}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public UserDTO getUserByEmail(@PathVariable String email) {
+    public User getUserByEmail(@PathVariable String email) {
         log.info("Get Userbyemail request {}", email);
         return userService.findUserByEmail(email);
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/update", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public UserDTO updateUser(@RequestBody UserDTO userDTO) {
+    public User updateUser(@RequestBody User userDTO) {
         log.info("Update User object {}", userDTO);
         if (StringUtils.isBlank(userDTO.getEmail()))
             return null;

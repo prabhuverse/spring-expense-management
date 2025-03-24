@@ -1,7 +1,7 @@
 package com.expense.mgmt.application.spring;
 
-import com.expense.mgmt.application.dto.spring.ControllerInfo;
-import com.expense.mgmt.application.dto.spring.HandlerMethodInfo;
+import com.expense.mgmt.domain.model.dto.spring.ControllerInfo;
+import com.expense.mgmt.domain.model.dto.spring.HandlerMethodInfo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
