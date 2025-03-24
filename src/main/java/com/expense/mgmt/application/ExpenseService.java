@@ -1,34 +1,59 @@
 package com.expense.mgmt.application;
 
 import com.expense.mgmt.domain.model.dto.Expense;
+import com.expense.mgmt.domain.model.dto.ExpenseFile;
+import com.expense.mgmt.domain.model.dto.spring.FileInfo;
+import com.expense.mgmt.domain.model.repository.ExpenseFileObjectRepository;
+import com.expense.mgmt.domain.model.repository.ExpenseFileRepository;
 import com.expense.mgmt.infrastructure.repository.persistance.EntityMappers;
 import com.expense.mgmt.infrastructure.repository.persistance.expense.ExpenseEntity;
 import com.expense.mgmt.domain.model.ExpenseCategory;
 import com.expense.mgmt.domain.model.repository.ExpenseRepository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class ExpenseService {
 
-    @Autowired
-    ExpenseRepository repository;
+    private final ExpenseRepository repository;
 
-    @Autowired
-    UserService userService;
+    private final ExpenseFileObjectRepository fileObjectRepository;
+
+    private final ExpenseFileRepository fileRepository;
+
+    private final UserService userService;
 
     public Expense createExpense(Expense expense) {
         ExpenseEntity expenseEntity = EntityMappers.toExpenseEntity(expense);
         expenseEntity.setUser(EntityMappers.toUserEntity(userService.findUserById(expense.getUser().getId())));
         expense = repository.save(expenseEntity);
         log.info("Persisted expense object {}", expense);
+        return expense;
+    }
+
+
+    @Transactional
+    public Expense uploadFile(final Long expenseId, final MultipartFile file) {
+        Expense expense = getExpenseById(expenseId);
+        if (expense != null) {
+            String fileName = expense.getUser().getId() + "/" + file.getOriginalFilename();
+            FileInfo fileInfo = fileObjectRepository.uploadFile(fileName, file);
+            ExpenseFile expenseFile = ExpenseFile.builder().fileInfo(fileInfo).build();
+            expenseFile = fileRepository.save(expenseFile);
+            expense.setExpenseFile(expenseFile);
+        } else {
+            throw new RuntimeException("Expense Not found");
+        }
         return expense;
     }
 

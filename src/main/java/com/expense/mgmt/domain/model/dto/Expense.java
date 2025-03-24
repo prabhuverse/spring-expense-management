@@ -18,9 +18,19 @@ import java.time.LocalDate;
 @Setter
 public class Expense {
     private Long id;
+
     private ExpenseCategory category;
+
     private String description;
+
     private BigDecimal amount;
+
     private LocalDate createdOn;
+
     private User user;
+
+    private ExpenseFile expenseFile;
+
+    private Integer version;
+
 }

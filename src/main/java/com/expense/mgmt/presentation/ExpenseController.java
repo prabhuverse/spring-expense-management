@@ -10,10 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,10 +29,21 @@ public class ExpenseController {
     @Autowired
     ExpenseService expenseService;
 
-    @RequestMapping(method = RequestMethod.POST, path = "/create")
-    public Expense createExpense(@RequestBody Expense expense) {
+    @RequestMapping(method = RequestMethod.POST, path = "/create", consumes = {
+            MediaType.MULTIPART_FORM_DATA_VALUE,
+            MediaType.APPLICATION_JSON_VALUE,
+    })
+    public Expense createExpense(@RequestBody(required = false) Expense expense) {
         log.info("Received new expense request {}", expense);
         return expenseService.createExpense(expense);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/upload/{expenseId}", consumes = {
+            MediaType.MULTIPART_FORM_DATA_VALUE
+    })
+    public Expense uploadFile(@PathVariable("expenseId") Long expenseId, @RequestParam("file") MultipartFile file) {
+        Expense expense = expenseService.uploadFile(expenseId, file);
+        return createExpense(expense);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/list/{category}", produces = {

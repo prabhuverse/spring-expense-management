@@ -1,6 +1,13 @@
 package com.expense.mgmt.infrastructure.repository.persistance.expense;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import com.expense.mgmt.domain.model.dto.spring.FileInfo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +23,11 @@ import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Setter
 @Entity
 @Table(name = "expense_file")
 public class ExpenseFileEntity {
@@ -34,11 +45,11 @@ public class ExpenseFileEntity {
     private Integer version;
 
     @CreationTimestamp
-    @Column
+    @Column(name = "createdOn", nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
     private LocalDateTime createdOn;
 
     @UpdateTimestamp
-    @Column
-    private LocalDateTime updateOn;
+    @Column(name = "updatedOn", nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    private LocalDateTime updatedOn;
 
 }

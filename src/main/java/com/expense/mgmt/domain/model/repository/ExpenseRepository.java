@@ -18,4 +18,6 @@ public interface ExpenseRepository {
     List<Expense> findByCategory(ExpenseCategory category);
 
     void deleteById(Long id);
+
+    void updateFileId(Expense expense);
 }

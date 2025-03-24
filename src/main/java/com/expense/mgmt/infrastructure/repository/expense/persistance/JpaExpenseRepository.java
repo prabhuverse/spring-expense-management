@@ -18,11 +18,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Repository
 public class JpaExpenseRepository implements ExpenseRepository {
+
     private final SpringDataExpenseRepository expenseRepository;
 
     @Override
     public Expense save(ExpenseEntity expense) {
         return EntityMappers.toExpense(expenseRepository.save(expense));
+    }
+
+    public void updateFileId(Expense expense) {
+        expenseRepository.updateExpenseFile(expense.getId(), expense.getExpenseFile().id());
     }
 
     @Override

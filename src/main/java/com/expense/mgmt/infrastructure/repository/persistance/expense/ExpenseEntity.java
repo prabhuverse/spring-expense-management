@@ -3,6 +3,7 @@ package com.expense.mgmt.infrastructure.repository.persistance.expense;
 
 import com.expense.mgmt.domain.model.ExpenseCategory;
 import com.expense.mgmt.infrastructure.repository.persistance.user.UserEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -60,7 +61,7 @@ public class ExpenseEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "file_id")
     private ExpenseFileEntity file;
 

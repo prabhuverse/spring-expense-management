@@ -32,6 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
+depenencytree.txt
+
 mvnw.cmd
 mvnw
 .mvn
