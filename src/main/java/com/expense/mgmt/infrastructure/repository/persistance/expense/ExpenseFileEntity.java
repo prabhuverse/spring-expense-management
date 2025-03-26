@@ -28,8 +28,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Setter
-@Entity
-@Table(name = "expense_file")
+@Entity(name = "expense_file")
+@Table
 public class ExpenseFileEntity {
 
     @Id

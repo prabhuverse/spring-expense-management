@@ -42,8 +42,7 @@ public class ExpenseController {
             MediaType.MULTIPART_FORM_DATA_VALUE
     })
     public Expense uploadFile(@PathVariable("expenseId") Long expenseId, @RequestParam("file") MultipartFile file) {
-        Expense expense = expenseService.uploadFile(expenseId, file);
-        return createExpense(expense);
+        return expenseService.uploadFile(expenseId, file);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/list/{category}", produces = {
