@@ -5,6 +5,7 @@ import com.expense.mgmt.domain.model.dto.Expense;
 import com.expense.mgmt.domain.model.ExpenseCategory;
 
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,12 @@ import java.util.List;
 
 
 @Slf4j
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/expense")
 public class ExpenseController {
 
-    @Autowired
-    ExpenseService expenseService;
+    private final ExpenseService expenseService;
 
     @RequestMapping(method = RequestMethod.POST, path = "/create", consumes = {
             MediaType.MULTIPART_FORM_DATA_VALUE,
