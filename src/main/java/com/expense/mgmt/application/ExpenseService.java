@@ -51,6 +51,7 @@ public class ExpenseService {
             ExpenseFile expenseFile = ExpenseFile.builder().fileInfo(fileInfo).build();
             expenseFile = fileRepository.save(expenseFile);
             expense.setExpenseFile(expenseFile);
+            createExpense(expense);
         } else {
             throw new RuntimeException("Expense Not found");
         }
