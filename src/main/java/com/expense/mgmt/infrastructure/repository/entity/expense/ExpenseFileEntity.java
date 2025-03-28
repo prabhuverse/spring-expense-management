@@ -28,7 +28,7 @@ import java.time.LocalDateTime;
 @Builder
 @Setter
 @Entity(name = "expense_file")
-@Table
+@Table(name = "expense_file")
 public class ExpenseFileEntity {
 
     @Id

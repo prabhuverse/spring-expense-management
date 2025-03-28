@@ -4,9 +4,11 @@ import lombok.experimental.UtilityClass;
 
 import com.expense.mgmt.domain.model.dto.Expense;
 import com.expense.mgmt.domain.model.dto.ExpenseFile;
+import com.expense.mgmt.domain.model.dto.Group;
 import com.expense.mgmt.domain.model.dto.User;
 import com.expense.mgmt.infrastructure.repository.entity.expense.ExpenseEntity;
 import com.expense.mgmt.infrastructure.repository.entity.expense.ExpenseFileEntity;
+import com.expense.mgmt.infrastructure.repository.entity.group.GroupEntity;
 import com.expense.mgmt.infrastructure.repository.entity.user.UserEntity;
 import org.springframework.util.CollectionUtils;
 
@@ -17,7 +19,7 @@ import java.util.List;
 public class EntityMappers {
 
     public Expense toExpense(ExpenseEntity expense) {
-         return Expense.builder()
+        return Expense.builder()
                 .id(expense.getId())
                 .category(expense.getCategory())
                 .amount(expense.getAmount())
@@ -26,6 +28,7 @@ public class EntityMappers {
                 .user(toUserDTO(expense.getUser()))
                 .version(expense.getVersion())
                 .expenseFile(toExpenseFile(expense.getFile()))
+                .group(toGroup(expense.getGroup()))
                 .build();
     }
 
@@ -39,6 +42,7 @@ public class EntityMappers {
                 .user(toUserEntity(dto.getUser()))
                 .version(dto.getVersion())
                 .file(toExpenseFileEntity(dto.getExpenseFile()))
+                .group(toGroupEntity(dto.getGroup()))
                 .build();
     }
 
@@ -82,6 +86,32 @@ public class EntityMappers {
                 .createdOn(expense.createdOn())
                 .info(expense.fileInfo())
                 .id(expense.id())
+                .build();
+    }
+
+    public static GroupEntity toGroupEntity(Group group) {
+        if (group == null) {
+            return null;
+        }
+        return GroupEntity.builder()
+                .id(group.id())
+                .name(group.name())
+                .createdOn(group.createdOn())
+                .expenses(group.expenses().stream().map(EntityMappers::toExpenseEntity).toList())
+                .version(group.version())
+                .build();
+    }
+
+    public static Group toGroup(GroupEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+        return Group.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .createdOn(entity.getCreatedOn())
+                .expenses(entity.getExpenses().stream().map(EntityMappers::toExpense).toList())
+                .version(entity.getVersion())
                 .build();
     }
 }

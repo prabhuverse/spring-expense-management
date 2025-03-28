@@ -2,6 +2,7 @@ package com.expense.mgmt.infrastructure.repository.entity.expense;
 
 
 import com.expense.mgmt.domain.model.ExpenseCategory;
+import com.expense.mgmt.infrastructure.repository.entity.group.GroupEntity;
 import com.expense.mgmt.infrastructure.repository.entity.user.UserEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -14,6 +15,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 
 import lombok.Getter;
@@ -33,6 +35,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Entity(name = "expenses")
+@Table(name = "expenses")
 @Getter
 @Setter
 public class ExpenseEntity {
@@ -61,9 +64,13 @@ public class ExpenseEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "file_id")
     private ExpenseFileEntity file;
+
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private GroupEntity group;
 
     @Version
     @Column

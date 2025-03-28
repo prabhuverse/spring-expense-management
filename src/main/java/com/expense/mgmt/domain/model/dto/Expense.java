@@ -33,4 +33,6 @@ public class Expense {
 
     private Integer version;
 
+    private Group group;
+
 }
