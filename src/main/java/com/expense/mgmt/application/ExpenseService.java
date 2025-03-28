@@ -16,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -33,40 +35,45 @@ public class ExpenseService {
 
     private final UserService userService;
 
-    public Expense createExpense(Expense expense) {
+    public Mono<Expense> createExpense(Expense expense) {
         ExpenseEntity expenseEntity = EntityMappers.toExpenseEntity(expense);
-        expenseEntity.setUser(EntityMappers.toUserEntity(userService.findUserById(expense.getUser().getId())));
-        expense = repository.save(expenseEntity);
-        log.info("Persisted expense object {}", expense);
-        return expense;
+        return userService.findUserById(expenseEntity.getUser().getId())
+                .map((user -> {
+                    expenseEntity.setUser(EntityMappers.toUserEntity(user));
+                    return expenseEntity;
+                }))
+                .flatMap(exp -> repository.save(exp));
+
     }
 
 
-    @Transactional
-    public Expense uploadFile(final Long expenseId, final MultipartFile file) {
-        Expense expense = getExpenseById(expenseId);
-        if (expense != null) {
-            String fileName = expense.getUser().getId() + "/" + file.getOriginalFilename();
-            FileInfo fileInfo = fileObjectRepository.uploadFile(fileName, file);
-            ExpenseFile expenseFile = ExpenseFile.builder().fileInfo(fileInfo).build();
-            expenseFile = fileRepository.save(expenseFile);
-            expense.setExpenseFile(expenseFile);
-            createExpense(expense);
-        } else {
-            throw new RuntimeException("Expense Not found");
-        }
-        return expense;
+    //@Transactional
+    public Mono<Expense> uploadFile(final Long expenseId, final MultipartFile file) {
+        return getExpenseById(expenseId)
+                .flatMap(expense -> {
+                    String fileName = expense.getUser().getId() + "/" + file.getOriginalFilename();
+                    return fileObjectRepository.uploadFile(fileName, file)
+                            .flatMap(fileInfo -> {
+                                ExpenseFile expenseFile = ExpenseFile.builder().fileInfo(fileInfo).build();
+                                return fileRepository.save(expenseFile)
+                                        .flatMap(savedFile -> {
+                                            expense.setExpenseFile(savedFile);
+                                            return createExpense(expense);
+                                        });
+                            });
+                });
+
     }
 
-    public List<Expense> listExpenseByType(ExpenseCategory category) {
+    public Flux<Expense> listExpenseByType(ExpenseCategory category) {
         return repository.findByCategory(category);
     }
 
-    public Expense deleteExpense(Long id) {
-        return repository.findById(id).get();
+    public Mono<Expense> deleteExpense(Long id) {
+        return repository.findById(id);
     }
 
-    public Expense getExpenseById(Long id) {
-        return repository.findById(id).get();
+    public Mono<Expense> getExpenseById(Long id) {
+        return repository.findById(id);
     }
 }

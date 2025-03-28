@@ -1,18 +1,17 @@
 package com.expense.mgmt.domain.model.repository;
 
 import com.expense.mgmt.domain.model.dto.User;
-
-import java.util.List;
-import java.util.Optional;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface UserRepository {
 
-    User save(User user);
+    Mono<User> save(User user);
 
-    Optional<User> findByEmail(String email);
+    Mono<User> findByEmail(String email);
 
-    Optional<User> findById(Long id);
+    Mono<User> findById(Long id);
 
-    List<User> findAll();
+    Flux<User> findAll();
 }
 

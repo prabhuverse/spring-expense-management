@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import com.expense.mgmt.domain.model.dto.User;
-import com.expense.mgmt.infrastructure.repository.persistance.EntityMappers;
 import com.expense.mgmt.domain.model.repository.UserRepository;
 import com.expense.mgmt.infrastructure.util.JwtUtil;
 import com.expense.mgmt.presentation.rest.ApiResponse;
@@ -65,7 +64,7 @@ public class GlobalResponseAdvise implements ResponseBodyAdvice<Object> {
             SecurityContext context = SecurityContextHolder.getContext();
             if (context != null && context.getAuthentication() != null) {
                 UserDetails userDetails = ((UserDetails) context.getAuthentication().getPrincipal());
-                User user = userRepository.findByEmail(userDetails.getUsername()).get();
+                User user = userRepository.findByEmail(userDetails.getUsername()).block();
                 token = JwtUtil.generateToken(user);
             }
 

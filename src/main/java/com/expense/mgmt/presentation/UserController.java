@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
+import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 
@@ -30,19 +31,19 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.POST, path = "/register", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public User registerUser(@RequestBody User user) {
+    public Mono<User> registerUser(@RequestBody User user) {
         log.info("User register request recieved {}", user);
         return userService.registerUser(user);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{email}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public User getUserByEmail(@PathVariable String email) {
+    public Mono<User> getUserByEmail(@PathVariable String email) {
         log.info("Get Userbyemail request {}", email);
         return userService.findUserByEmail(email);
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/update", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public User updateUser(@RequestBody User userDTO) {
+    public Mono<User> updateUser(@RequestBody User userDTO) {
         log.info("Update User object {}", userDTO);
         if (StringUtils.isBlank(userDTO.getEmail()))
             return null;

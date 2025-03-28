@@ -9,10 +9,8 @@ import com.expense.mgmt.domain.model.repository.ExpenseRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
-import java.util.Optional;
-
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 // implements the technical details
 @RequiredArgsConstructor
@@ -22,30 +20,27 @@ public class JpaExpenseRepository implements ExpenseRepository {
     private final SpringDataExpenseRepository expenseRepository;
 
     @Override
-    public Expense save(ExpenseEntity expense) {
-        return EntityMappers.toExpense(expenseRepository.save(expense));
+    public Mono<Expense> save(ExpenseEntity expense) {
+        return expenseRepository.save(expense).map(EntityMappers::toExpense);
     }
 
     public void updateFileId(Expense expense) {
-        expenseRepository.updateExpenseFile(expense.getId(), expense.getExpenseFile().id());
+        //expenseRepository.updateExpenseFile(expense.getId(), expense.getExpenseFile().id());
     }
 
     @Override
-    public Optional<Expense> findById(Long id) {
-        Optional<ExpenseEntity> expenses = expenseRepository.findById(id);
-        return Optional.of(EntityMappers.toExpense(expenses.get()));
+    public Mono<Expense> findById(Long id) {
+        return expenseRepository.findById(id).map(EntityMappers::toExpense);
     }
 
     @Override
-    public List<Expense> findAll() {
-        List<ExpenseEntity> expenses = expenseRepository.findAll();
-        return expenses.stream().map(EntityMappers::toExpense).toList();
+    public Flux<Expense> findAll() {
+        return expenseRepository.findAll().map(EntityMappers::toExpense);
     }
 
     @Override
-    public List<Expense> findByCategory(ExpenseCategory category) {
-        List<ExpenseEntity> expenses = expenseRepository.findByCategory(category);
-        return expenses.stream().map(EntityMappers::toExpense).toList();
+    public Flux<Expense> findByCategory(ExpenseCategory category) {
+        return expenseRepository.findByCategory(category).map(EntityMappers::toExpense);
     }
 
     @Override

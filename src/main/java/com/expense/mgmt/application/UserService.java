@@ -1,17 +1,15 @@
 package com.expense.mgmt.application;
 
 import com.expense.mgmt.domain.model.dto.User;
-import com.expense.mgmt.infrastructure.repository.persistance.EntityMappers;
 import com.expense.mgmt.domain.model.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import com.expense.mgmt.infrastructure.repository.persistance.user.UserEntity;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 
@@ -25,28 +23,28 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public User registerUser(final User user) {
-        userRepository.save(user);
+    public Mono<User> registerUser(final User user) {
         log.info("Persisted user object {}", user);
-        return user;
+        return userRepository.save(user);
     }
 
-    public User findUserByEmail(final String email) {
-        return userRepository.findByEmail(email).get();
+    public Mono<User> findUserByEmail(final String email) {
+        return userRepository.findByEmail(email);
     }
 
-    public User findUserById(final Long id) {
-        return userRepository.findById(id).get();
+    public Mono<User> findUserById(final Long id) {
+        return userRepository.findById(id);
     }
 
-    public User updateUser(final User userDTO) {
-        User currentUser = userRepository.findByEmail(userDTO.getEmail()).get();
-        if (StringUtils.isNotBlank(userDTO.getName()))
-            currentUser.setName(userDTO.getName());
-        if (StringUtils.isNotBlank(userDTO.getPassword())) {
-            currentUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        }
-        log.info("Current User Before updating {} and user {}", currentUser, userDTO);
-        return userRepository.save(currentUser);
+    public Mono<User> updateUser(final User userDTO) {
+        return userRepository.findByEmail(userDTO.getEmail())
+                .map((user -> {
+                    if (StringUtils.isNotBlank(userDTO.getName()))
+                        user.setName(userDTO.getName());
+                    if (StringUtils.isNotBlank(userDTO.getPassword())) {
+                        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+                    }
+                    return user;
+                })).flatMap(user -> userRepository.save(user));
     }
 }

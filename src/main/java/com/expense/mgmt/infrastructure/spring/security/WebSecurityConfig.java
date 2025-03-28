@@ -34,19 +34,21 @@ public class WebSecurityConfig {
     @Bean
     @SneakyThrows
     public SecurityFilterChain securityFilterChain(HttpSecurity security) {
-        security.csrf(csrf -> csrf.disable())
+        /* security.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/api/v1/user/register").permitAll();
                     auth.anyRequest().authenticated();
                 }).sessionManagement(sess -> {
                     sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 })
-                .httpBasic(Customizer.withDefaults())
+                //.httpBasic(Customizer.withDefaults())
                 .anonymous(anonymous -> anonymous.disable())
                 .addFilter(new BasicAuthenticationFilter(authenticationManager(userDetailsService, passwordEncoder)));
-        return security.build();
+        return security.build();         */
+        return security.csrf(csrf -> csrf.disable()).build();
     }
 
+    /*
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return new CustomUserDetailsService(userRepository, passwordEncoder);
@@ -59,4 +61,6 @@ public class WebSecurityConfig {
         provider.setUserDetailsService(userDetailsService);
         return new ProviderManager(provider);
     }
+
+     */
 }

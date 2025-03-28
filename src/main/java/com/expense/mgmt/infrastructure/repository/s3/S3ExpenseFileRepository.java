@@ -12,6 +12,7 @@ import com.expense.mgmt.domain.model.dto.spring.FileInfo;
 import com.expense.mgmt.domain.model.repository.ExpenseFileObjectRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class S3ExpenseFileRepository implements ExpenseFileObjectRepository {
 
 
     @Override
-    public FileInfo uploadFile(String expenseFile, MultipartFile file) {
+    public Mono<FileInfo> uploadFile(String expenseFile, MultipartFile file) {
         String fileName = expenseFile;
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(BUCKET)
@@ -37,7 +38,13 @@ public class S3ExpenseFileRepository implements ExpenseFileObjectRepository {
                     putObjectRequest,
                     AsyncRequestBody.fromBytes(file.getBytes())
             ).join();
-            return FileInfo.builder().name(fileName).path(fileName).size(Long.valueOf(file.getSize()).intValue()).type(file.getContentType()).build();
+            FileInfo fileInfo = FileInfo.builder()
+                    .name(fileName)
+                    .path(fileName)
+                    .size(Long.valueOf(file.getSize()).intValue())
+                    .type(file.getContentType())
+                    .build();
+            return Mono.justOrEmpty(fileInfo);
         } catch (Exception e) {
             log.error("unable to file {} cause ", expenseFile, e);
         }

@@ -3,19 +3,18 @@ package com.expense.mgmt.domain.model.repository;
 import com.expense.mgmt.domain.model.dto.Expense;
 import com.expense.mgmt.infrastructure.repository.persistance.expense.ExpenseEntity;
 import com.expense.mgmt.domain.model.ExpenseCategory;
-
-import java.util.List;
-import java.util.Optional;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface ExpenseRepository {
 
-    Expense save(ExpenseEntity expense);
+    Mono<Expense> save(ExpenseEntity expense);
 
-    Optional<Expense> findById(Long id);
+    Mono<Expense> findById(Long id);
 
-    List<Expense> findAll();
+    Flux<Expense> findAll();
 
-    List<Expense> findByCategory(ExpenseCategory category);
+    Flux<Expense> findByCategory(ExpenseCategory category);
 
     void deleteById(Long id);
 

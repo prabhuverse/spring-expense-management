@@ -7,6 +7,8 @@ import com.expense.mgmt.domain.model.repository.ExpenseFileRepository;
 import com.expense.mgmt.infrastructure.repository.persistance.EntityMappers;
 import com.expense.mgmt.infrastructure.repository.persistance.expense.ExpenseFileEntity;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,23 +20,17 @@ public class JpaExpenseFileRepository implements ExpenseFileRepository {
     private final SpringDataExpenseFileRepository repository;
 
     @Override
-    public ExpenseFile save(ExpenseFile expense) {
-        ExpenseFileEntity entity = repository.saveAndFlush(EntityMappers.toExpenseFileEntity(expense));
-        return EntityMappers.toExpenseFile(entity);
+    public Mono<ExpenseFile> save(ExpenseFile expense) {
+        return repository.save(EntityMappers.toExpenseFileEntity(expense)).map(EntityMappers::toExpenseFile);
     }
 
     @Override
-    public Optional<ExpenseFile> findById(Long id) {
-        Optional<ExpenseFileEntity> entity = repository.findById(id);
-        if (entity.isPresent()) {
-            return Optional.of(EntityMappers.toExpenseFile(entity.get()));
-        }
-        return Optional.empty();
+    public Mono<ExpenseFile> findById(Long id) {
+        return repository.findById(id).map(EntityMappers::toExpenseFile);
     }
 
     @Override
-    public List<ExpenseFile> findAll() {
-        List<ExpenseFileEntity> entities = repository.findAll();
-        return entities.stream().map(EntityMappers::toExpenseFile).toList();
+    public Flux<ExpenseFile> findAll() {
+        return repository.findAll().map(EntityMappers::toExpenseFile);
     }
 }

@@ -8,19 +8,16 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
-
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -34,7 +31,7 @@ public class ExpenseController {
             MediaType.MULTIPART_FORM_DATA_VALUE,
             MediaType.APPLICATION_JSON_VALUE,
     })
-    public Expense createExpense(@RequestBody(required = false) Expense expense) {
+    public Mono<Expense> createExpense(@RequestBody(required = false) Expense expense) {
         log.info("Received new expense request {}", expense);
         return expenseService.createExpense(expense);
     }
@@ -42,27 +39,25 @@ public class ExpenseController {
     @RequestMapping(method = RequestMethod.POST, value = "/upload/{expenseId}", consumes = {
             MediaType.MULTIPART_FORM_DATA_VALUE
     })
-    public Expense uploadFile(@PathVariable("expenseId") Long expenseId, @RequestParam("file") MultipartFile file) {
+    public Mono<Expense> uploadFile(@PathVariable("expenseId") Long expenseId, @RequestParam("file") MultipartFile file) {
         return expenseService.uploadFile(expenseId, file);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/list/{category}", produces = {
             MediaType.APPLICATION_JSON_VALUE})
-    public List<Expense> listExpenseByType(@PathVariable @NonNull String category) {
+    public Flux<Expense> listExpenseByType(@PathVariable @NonNull String category) {
         log.info("Fetch expenses by category {}", category);
-        List<Expense> expenseDTOS =
-                expenseService.listExpenseByType(ExpenseCategory.valueOf(category.toUpperCase()));
-        return expenseDTOS;
+        return expenseService.listExpenseByType(ExpenseCategory.valueOf(category.toUpperCase()));
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Expense getExpenseById(@PathVariable @NonNull Long id) {
+    public Mono<Expense> getExpenseById(@PathVariable @NonNull Long id) {
         log.info("Fetch expense by id {}", id);
         return expenseService.getExpenseById(id);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Expense deleteExpense(@PathVariable Long id) {
+    public Mono<Expense> deleteExpense(@PathVariable Long id) {
         return expenseService.deleteExpense(id);
     }
 }

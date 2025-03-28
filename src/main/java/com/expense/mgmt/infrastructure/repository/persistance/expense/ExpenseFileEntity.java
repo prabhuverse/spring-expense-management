@@ -4,22 +4,13 @@ package com.expense.mgmt.infrastructure.repository.persistance.expense;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import com.expense.mgmt.domain.model.dto.spring.FileInfo;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Version;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.type.SqlTypes;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 
@@ -28,28 +19,22 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Setter
-@Entity(name = "expense_file")
-@Table
+@Table("expense_file")
 public class ExpenseFileEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(nullable = false, columnDefinition = "json")
+    @Column
     private FileInfo info;
 
-    @Version
     @Column
     private Integer version;
 
-    @CreationTimestamp
-    @Column(name = "createdOn", nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    @Column("created_on")
     private LocalDateTime createdOn;
 
-    @UpdateTimestamp
-    @Column(name = "updatedOn", nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    @Column("updated_on")
     private LocalDateTime updatedOn;
 
 }

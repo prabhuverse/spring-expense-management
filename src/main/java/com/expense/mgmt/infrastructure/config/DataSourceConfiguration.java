@@ -1,59 +1,30 @@
 package com.expense.mgmt.infrastructure.config;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-import org.springframework.beans.factory.annotation.Qualifier;
+import io.r2dbc.postgresql.PostgresqlConnectionConfiguration;
+import io.r2dbc.postgresql.PostgresqlConnectionFactory;
+import io.r2dbc.spi.ConnectionFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
-import javax.sql.DataSource;
 
 @Component
 public class DataSourceConfiguration {
 
+    /*
     @Bean
-    @ConfigurationProperties(value = "spring.datasource.dev")
-    public DataSourceProperties devDataSourceProperties() {
-        return new DataSourceProperties();
+    @ConfigurationProperties(prefix = "spring.r2dbc.postgresql")
+    public PostgresqlConnectionConfiguration connectionConfiguration() {
+        return PostgresqlConnectionConfiguration.builder()
+                .host("localhost")  // Default host, replace with your actual DB host
+                .database("your_database_name")  // Replace with your DB name
+                .username("your_username")  // Replace with your DB username
+                .password("your_password")  // Replace with your DB password
+                .build();
     }
 
     @Bean
-    @ConfigurationProperties(value = "spring.datasource")
-    public DataSourceProperties defaultDataSourceProperties() {
-        return new DataSourceProperties();
+    public ConnectionFactory connectionFactory(PostgresqlConnectionConfiguration connectionConfiguration) {
+        return new PostgresqlConnectionFactory(connectionConfiguration);
     }
-
-
-    @Bean
-    @Profile("dev")
-    public DataSource devDataSource(@Qualifier("devDataSourceProperties") DataSourceProperties sourceProperties) {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(sourceProperties.getUrl());
-        config.setDriverClassName(sourceProperties.getDriverClassName());
-        config.setUsername(sourceProperties.getUsername());
-        config.setPassword(sourceProperties.getPassword());
-        config.setPoolName(sourceProperties.getHikari().getPoolName());
-        config.setMinimumIdle(sourceProperties.getHikari().getMinimumIdle());
-        config.setMaximumPoolSize(sourceProperties.getHikari().getMaximumPoolSize());
-        return new HikariDataSource(config);
-    }
-
-    @Bean
-    @Profile("!dev")
-    @Primary
-    public DataSource defaultDataSource(
-            @Qualifier("defaultDataSourceProperties") DataSourceProperties sourceProperties) {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(sourceProperties.getUrl());
-        config.setDriverClassName(sourceProperties.getDriverClassName());
-        config.setUsername(sourceProperties.getUsername());
-        config.setPassword(sourceProperties.getPassword());
-        config.setPoolName(sourceProperties.getHikari().getPoolName());
-        config.setMinimumIdle(sourceProperties.getHikari().getMinimumIdle());
-        config.setMaximumPoolSize(sourceProperties.getHikari().getMaximumPoolSize());
-        return new HikariDataSource(config);
-    }
+     */
 }
