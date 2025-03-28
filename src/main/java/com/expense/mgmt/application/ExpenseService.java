@@ -5,8 +5,8 @@ import com.expense.mgmt.domain.model.dto.ExpenseFile;
 import com.expense.mgmt.domain.model.dto.spring.FileInfo;
 import com.expense.mgmt.domain.model.repository.ExpenseFileObjectRepository;
 import com.expense.mgmt.domain.model.repository.ExpenseFileRepository;
-import com.expense.mgmt.infrastructure.repository.persistance.EntityMappers;
-import com.expense.mgmt.infrastructure.repository.persistance.expense.ExpenseEntity;
+import com.expense.mgmt.infrastructure.repository.entity.EntityMappers;
+import com.expense.mgmt.infrastructure.repository.entity.expense.ExpenseEntity;
 import com.expense.mgmt.domain.model.ExpenseCategory;
 import com.expense.mgmt.domain.model.repository.ExpenseRepository;
 

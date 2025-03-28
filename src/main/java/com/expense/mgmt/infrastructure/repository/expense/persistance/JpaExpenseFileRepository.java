@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 
 import com.expense.mgmt.domain.model.dto.ExpenseFile;
 import com.expense.mgmt.domain.model.repository.ExpenseFileRepository;
-import com.expense.mgmt.infrastructure.repository.persistance.EntityMappers;
-import com.expense.mgmt.infrastructure.repository.persistance.expense.ExpenseFileEntity;
+import com.expense.mgmt.infrastructure.repository.entity.EntityMappers;
+import com.expense.mgmt.infrastructure.repository.entity.expense.ExpenseFileEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

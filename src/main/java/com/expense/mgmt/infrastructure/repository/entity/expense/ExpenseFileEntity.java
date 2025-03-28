@@ -1,10 +1,9 @@
-package com.expense.mgmt.infrastructure.repository.persistance.expense;
+package com.expense.mgmt.infrastructure.repository.entity.expense;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 

@@ -1,7 +1,7 @@
 package com.expense.mgmt.domain.model.repository;
 
 import com.expense.mgmt.domain.model.dto.Expense;
-import com.expense.mgmt.infrastructure.repository.persistance.expense.ExpenseEntity;
+import com.expense.mgmt.infrastructure.repository.entity.expense.ExpenseEntity;
 import com.expense.mgmt.domain.model.ExpenseCategory;
 
 import java.util.List;

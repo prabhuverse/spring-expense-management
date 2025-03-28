@@ -1,19 +1,14 @@
 package com.expense.mgmt.application;
 
 import com.expense.mgmt.domain.model.dto.User;
-import com.expense.mgmt.infrastructure.repository.persistance.EntityMappers;
 import com.expense.mgmt.domain.model.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import com.expense.mgmt.infrastructure.repository.persistance.user.UserEntity;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 // application service - orchestrates/delegates to the domain layer
 @Slf4j

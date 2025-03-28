@@ -1,8 +1,8 @@
-package com.expense.mgmt.infrastructure.repository.persistance.expense;
+package com.expense.mgmt.infrastructure.repository.entity.expense;
 
 
 import com.expense.mgmt.domain.model.ExpenseCategory;
-import com.expense.mgmt.infrastructure.repository.persistance.user.UserEntity;
+import com.expense.mgmt.infrastructure.repository.entity.user.UserEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;

@@ -1,6 +1,6 @@
 package com.expense.mgmt.infrastructure.repository.expense.persistance;
 
-import com.expense.mgmt.infrastructure.repository.persistance.expense.ExpenseFileEntity;
+import com.expense.mgmt.infrastructure.repository.entity.expense.ExpenseFileEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

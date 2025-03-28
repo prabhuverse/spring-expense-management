@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import com.expense.mgmt.domain.model.dto.User;
-import com.expense.mgmt.infrastructure.repository.persistance.EntityMappers;
 import com.expense.mgmt.domain.model.repository.UserRepository;
 import com.expense.mgmt.infrastructure.util.JwtUtil;
 import com.expense.mgmt.presentation.rest.ApiResponse;

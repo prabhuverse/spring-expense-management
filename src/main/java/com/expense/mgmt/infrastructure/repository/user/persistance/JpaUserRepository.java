@@ -4,8 +4,8 @@ package com.expense.mgmt.infrastructure.repository.user.persistance;
 import lombok.RequiredArgsConstructor;
 
 import com.expense.mgmt.domain.model.dto.User;
-import com.expense.mgmt.infrastructure.repository.persistance.EntityMappers;
-import com.expense.mgmt.infrastructure.repository.persistance.user.UserEntity;
+import com.expense.mgmt.infrastructure.repository.entity.EntityMappers;
+import com.expense.mgmt.infrastructure.repository.entity.user.UserEntity;
 import com.expense.mgmt.domain.model.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,8 +1,8 @@
 package com.expense.mgmt.infrastructure.repository.expense.persistance;
 
-import com.expense.mgmt.infrastructure.repository.persistance.EntityMappers;
+import com.expense.mgmt.infrastructure.repository.entity.EntityMappers;
 import com.expense.mgmt.domain.model.dto.Expense;
-import com.expense.mgmt.infrastructure.repository.persistance.expense.ExpenseEntity;
+import com.expense.mgmt.infrastructure.repository.entity.expense.ExpenseEntity;
 import com.expense.mgmt.domain.model.ExpenseCategory;
 import com.expense.mgmt.domain.model.repository.ExpenseRepository;
 

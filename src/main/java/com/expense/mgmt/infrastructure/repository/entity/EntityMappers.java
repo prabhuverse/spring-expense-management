@@ -1,13 +1,13 @@
-package com.expense.mgmt.infrastructure.repository.persistance;
+package com.expense.mgmt.infrastructure.repository.entity;
 
 import lombok.experimental.UtilityClass;
 
 import com.expense.mgmt.domain.model.dto.Expense;
 import com.expense.mgmt.domain.model.dto.ExpenseFile;
 import com.expense.mgmt.domain.model.dto.User;
-import com.expense.mgmt.infrastructure.repository.persistance.expense.ExpenseEntity;
-import com.expense.mgmt.infrastructure.repository.persistance.expense.ExpenseFileEntity;
-import com.expense.mgmt.infrastructure.repository.persistance.user.UserEntity;
+import com.expense.mgmt.infrastructure.repository.entity.expense.ExpenseEntity;
+import com.expense.mgmt.infrastructure.repository.entity.expense.ExpenseFileEntity;
+import com.expense.mgmt.infrastructure.repository.entity.user.UserEntity;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
