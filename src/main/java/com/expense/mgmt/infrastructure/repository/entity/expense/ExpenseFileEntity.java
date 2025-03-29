@@ -3,7 +3,7 @@ package com.expense.mgmt.infrastructure.repository.entity.expense;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -22,12 +22,12 @@ import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
 @Setter
-@Entity(name = "expense_file")
+@Entity(name = "ExpenseFileEntity")
 @Table(name = "expense_file")
 public class ExpenseFileEntity {
 

@@ -81,11 +81,11 @@
     </logger>
 
     <!-- Hibernate Logs - Log SQL Only to hibernate.log -->
-    <logger name="org.hibernate" level="debug" additivity="false">
+    <logger name="org.hibernate" level="info" additivity="false">
         <appender-ref ref="HIBERNATE_LOG"/>
     </logger>
 
-    <logger name="org.hibernate.SQL" level="debug" additivity="false">
+    <logger name="org.hibernate.SQL" level="info" additivity="false">
         <appender-ref ref="HIBERNATE_LOG"/>
     </logger>
 
@@ -95,6 +95,10 @@
 
     <!-- Application Logs -->
     <logger name="com.example.demo_mvn" level="info" additivity="false">
+        <appender-ref ref="APP_LOG"/>
+    </logger>
+
+    <logger name="org.flywaydb" level="debug" additivity="false">
         <appender-ref ref="APP_LOG"/>
     </logger>
 

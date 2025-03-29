@@ -19,7 +19,7 @@ public interface SpringDataExpenseRepository extends JpaRepository<ExpenseEntity
 
     @Transactional
     @Modifying
-    @Query("UPDATE expenses e SET e.file.id = :fileId WHERE e.id = :expenseId")
+    @Query("UPDATE ExpenseEntity e SET e.file.id = :fileId WHERE e.id = :expenseId")
     int updateExpenseFile(@Param("expenseId") Long expenseId, @Param("fileId") Long fileId);
 
 }

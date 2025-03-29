@@ -19,6 +19,9 @@ import java.util.List;
 public class EntityMappers {
 
     public Expense toExpense(ExpenseEntity expense) {
+        if (expense.getGroup() != null) {
+            expense.getGroup().setExpenses(new ArrayList<>());
+        }
         return Expense.builder()
                 .id(expense.getId())
                 .category(expense.getCategory())

@@ -12,4 +12,6 @@ public class HikariConfig {
     private int minimumIdle;
 
     private int maximumPoolSize;
+
+    private String schema;
 }

@@ -14,11 +14,11 @@ import jakarta.persistence.Table;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.ToString;
 import lombok.AllArgsConstructor;
 
@@ -28,15 +28,15 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "users")
+@Entity(name = "UserEntity")
 @Getter
 @Setter
 @Builder
 @ToString(exclude = {"expenses"})
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
+@EqualsAndHashCode(exclude = {"expenses"})
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 public class UserEntity {
 
     @Id

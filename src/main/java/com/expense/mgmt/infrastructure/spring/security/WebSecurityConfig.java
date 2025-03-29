@@ -36,7 +36,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity security) {
         security.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/api/v1/user/register").permitAll();
+                    auth.requestMatchers("/api/v1/user/register**").permitAll();
                     auth.anyRequest().authenticated();
                 }).sessionManagement(sess -> {
                     sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
