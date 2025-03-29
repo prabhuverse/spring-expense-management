@@ -38,6 +38,7 @@ public class DataSourceConfiguration {
         config.setPoolName(sourceProperties.getHikari().getPoolName());
         config.setMinimumIdle(sourceProperties.getHikari().getMinimumIdle());
         config.setMaximumPoolSize(sourceProperties.getHikari().getMaximumPoolSize());
+        //config.setSchema(sourceProperties.getHikari().getSchema());
         return new HikariDataSource(config);
     }
 
@@ -54,6 +55,7 @@ public class DataSourceConfiguration {
         config.setPoolName(sourceProperties.getHikari().getPoolName());
         config.setMinimumIdle(sourceProperties.getHikari().getMinimumIdle());
         config.setMaximumPoolSize(sourceProperties.getHikari().getMaximumPoolSize());
+        //config.setSchema(sourceProperties.getHikari().getSchema());
         return new HikariDataSource(config);
     }
 }

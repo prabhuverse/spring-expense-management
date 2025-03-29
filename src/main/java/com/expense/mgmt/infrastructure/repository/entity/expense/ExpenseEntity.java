@@ -4,8 +4,10 @@ package com.expense.mgmt.infrastructure.repository.entity.expense;
 import com.expense.mgmt.domain.model.ExpenseCategory;
 import com.expense.mgmt.infrastructure.repository.entity.group.GroupEntity;
 import com.expense.mgmt.infrastructure.repository.entity.user.UserEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,7 +24,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.AllArgsConstructor;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,11 +31,10 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "expenses")
+@Entity(name = "ExpenseEntity")
 @Table(name = "expenses")
 @Getter
 @Setter
@@ -68,6 +68,7 @@ public class ExpenseEntity {
     @JoinColumn(name = "file_id")
     private ExpenseFileEntity file;
 
+    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "group_id")
     private GroupEntity group;

@@ -25,11 +25,13 @@ public class MDCContextFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        SecurityContext context = SecurityContextHolder.getContext();
-        UserDetails userDetails = ((UserDetails) context.getAuthentication().getPrincipal());
-        WebAuthenticationDetails authenticationDetails = (WebAuthenticationDetails) context.getAuthentication().getDetails();
-        MDC.put("email", userDetails.getUsername());
-        MDC.put("ip", authenticationDetails.getRemoteAddress());
+        if (SecurityContextHolder.getContext() != null && SecurityContextHolder.getContext().getAuthentication() != null) {
+            SecurityContext context = SecurityContextHolder.getContext();
+            UserDetails userDetails = ((UserDetails) context.getAuthentication().getPrincipal());
+            WebAuthenticationDetails authenticationDetails = (WebAuthenticationDetails) context.getAuthentication().getDetails();
+            MDC.put("email", userDetails.getUsername());
+            MDC.put("ip", authenticationDetails.getRemoteAddress());
+        }
         filterChain.doFilter(request, response);
         MDC.clear();
     }
