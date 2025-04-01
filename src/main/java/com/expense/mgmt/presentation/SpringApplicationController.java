@@ -44,7 +44,7 @@ public class SpringApplicationController {
     @RequestMapping(method = RequestMethod.GET, value = "/mapping/{type}",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<ApiResponse<Map<String, ControllerInfo>>> listHandlerMappingMethods(
-            @PathVariable String type) {
+            @PathVariable(required = false) String type) {
         Map<RequestMappingInfo, HandlerMethod> detail = new LinkedHashMap<>();
         if (StringUtils.isNotBlank(type) && StringUtils.equals(type, "controller")) {
             detail = controllerHandlerMapping.getHandlerMethods();
