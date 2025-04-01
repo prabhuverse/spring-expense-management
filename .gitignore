@@ -1,4 +1,6 @@
 HELP.md
+
+ai-notes
 target/
 !.mvn/wrapper/maven-wrapper.jar
 #!**/src/main/**/target/
