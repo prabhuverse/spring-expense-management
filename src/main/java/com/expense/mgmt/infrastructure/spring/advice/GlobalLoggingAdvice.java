@@ -36,11 +36,15 @@ public class GlobalLoggingAdvice implements ResponseBodyAdvice<Object> {
                                   Class<? extends HttpMessageConverter<?>> selectedConverterType,
                                   ServerHttpRequest request, org.springframework.http.server.ServerHttpResponse response) {
         String path = request.getURI().getPath();
-        LogDocument doc = LogDocument.builder()
-                .path(path)
-                .message(gson.toJson(body))
-                .build();
-        //elasticsearchService.logToElastic(doc, "loginfo").then();
+        try {
+            LogDocument doc = LogDocument.builder()
+                    .path(path)
+                    .message(gson.toJson(body))
+                    .build();
+            //elasticsearchService.logToElastic(doc, "loginfo").then();
+        } catch (Exception e) {
+            log.error("Error occured while logging to elasticsearch {} cause", path, e);
+        }
         return body;
     }
 }
