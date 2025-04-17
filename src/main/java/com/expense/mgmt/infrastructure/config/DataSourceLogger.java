@@ -31,13 +31,13 @@ public class DataSourceLogger {
     public void logHikariDataSource() {
         if (dataSource instanceof HikariDataSource) {
             HikariDataSource hikariDS = (HikariDataSource) dataSource;
-            log.info("HikariCP - Active Connections: {}", hikariDS.getHikariPoolMXBean().getActiveConnections());
-            log.info("HikariCP - Idle Connections: {}", hikariDS.getHikariPoolMXBean().getIdleConnections());
-            log.info("HikariCP - Total Connections: {}", hikariDS.getHikariPoolMXBean().getTotalConnections());
-            log.info("HikariCP - Threads Awaiting Connections: {}",
+            log.debug("HikariCP - Active Connections: {}", hikariDS.getHikariPoolMXBean().getActiveConnections());
+            log.debug("HikariCP - Idle Connections: {}", hikariDS.getHikariPoolMXBean().getIdleConnections());
+            log.debug("HikariCP - Total Connections: {}", hikariDS.getHikariPoolMXBean().getTotalConnections());
+            log.debug("HikariCP - Threads Awaiting Connections: {}",
                     hikariDS.getHikariPoolMXBean().getThreadsAwaitingConnection());
-            log.info("Configured Max Pool Size: {}", hikariDS.getMaximumPoolSize());
-            log.info("Configured Min Idle Connections: {}", hikariDS.getMinimumIdle());
+            log.debug("Configured Max Pool Size: {}", hikariDS.getMaximumPoolSize());
+            log.debug("Configured Min Idle Connections: {}", hikariDS.getMinimumIdle());
         }
     }
 }

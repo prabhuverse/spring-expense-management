@@ -6,6 +6,7 @@ import lombok.Builder;
 
 @Builder
 @JsonIgnoreProperties(value = {"name"})
-public record HandlerMethodInfo(String name, String beanName, String methodName) {
+public record HandlerMethodInfo(String name, String beanName, String methodType,
+                                String methodName, String path, String returnType) {
 
 }

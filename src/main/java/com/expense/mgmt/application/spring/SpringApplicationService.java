@@ -23,9 +23,15 @@ public class SpringApplicationService {
 
     public Map<String, ControllerInfo> listMappingInfo(Map<RequestMappingInfo, HandlerMethod> handlerMethodMap) {
         List<HandlerMethodInfo> methodInfos = handlerMethodMap.entrySet().stream()
-                .map(entry -> HandlerMethodInfo.builder().name(entry.getValue().getBean().toString())
+                .map(entry -> HandlerMethodInfo.builder()
+                        .name(entry.getValue().getBean().toString())
                         .beanName(entry.getValue().getBeanType().getTypeName())
-                        .methodName(entry.getValue().getShortLogMessage()).build())
+                        .methodType(entry.getKey().getMethodsCondition().getMethods().toString())
+                        .path(entry.getKey().getPathPatternsCondition().getFirstPattern().getPatternString())
+                        .methodName(entry.getValue().getShortLogMessage())
+                        //.returnType(entry.getValue().getReturnType().toString())
+                        .returnType(entry.getValue().getMethod().getReturnType().getName())
+                        .build())
                 .toList();
         Map<String, List<HandlerMethodInfo>> infos =
                 methodInfos.stream().collect(Collectors.groupingBy(HandlerMethodInfo::name));

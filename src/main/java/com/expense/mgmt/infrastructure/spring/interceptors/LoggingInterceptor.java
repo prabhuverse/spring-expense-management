@@ -17,20 +17,20 @@ public class LoggingInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        log.debug("preHandle Request {} and URI {} and status {}", request.getMethod(), request.getRequestURI(),
+        log.info("preHandle Request {} and URI {} and status {}", request.getMethod(), request.getRequestURI(),
                 response.getStatus());
         return true; // continue request processing
     }
 
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                            @Nullable ModelAndView modelAndView) {
-        log.debug("postHandle Request {} and URI {} and status {}", request.getMethod(), request.getRequestURI(),
+        log.info("postHandle Request {} and URI {} and status {}", request.getMethod(), request.getRequestURI(),
                 response.getStatus());
     }
 
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
                                 @Nullable Exception ex) {
-        log.debug("afterCompletion Request {} and URI {} and status {}", request.getMethod(), request.getRequestURI(),
+        log.info("afterCompletion Request {} and URI {} and status {}", request.getMethod(), request.getRequestURI(),
                 response.getStatus());
     }
 }
