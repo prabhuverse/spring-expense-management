@@ -15,14 +15,21 @@ public class GlobalControllerExceptionAdvice {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse> handleException(Exception e) {
         // Handle unexpected exceptions
-        ApiResponse<Expense> errorResponse =
+        ApiResponse<Object> errorResponse =
+                new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error: " + e.getMessage(), null);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ApiResponse> handleRuntimeException(RuntimeException e) {
+        ApiResponse<Object> errorResponse =
                 new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error: " + e.getMessage(), null);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ApiResponse> handleDataViolation(DataIntegrityViolationException e) {
-        ApiResponse<Expense> errorResponse =
+        ApiResponse<Object> errorResponse =
                 new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error: " + e.getMessage(), null);
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
     }

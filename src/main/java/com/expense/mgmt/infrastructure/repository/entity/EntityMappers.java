@@ -50,8 +50,11 @@ public class EntityMappers {
     }
 
     public UserEntity toUserEntity(User user) {
-        UserEntity userEntity = UserEntity.builder().id(user.getId()).email(user.getEmail()).password(user.getPassword())
-                .createdOn(user.getCredatedOn()).name(user.getName()).version(user.getVersion()).build();
+        UserEntity userEntity = UserEntity.builder()
+                .id(user.getId()).email(user.getEmail()).password(user.getPassword())
+                .createdOn(user.getCredatedOn()).name(user.getName())
+                .version(user.getVersion()).dateOfBirth(user.getDateOfBirth())
+                .build();
 
         if (!CollectionUtils.isEmpty(user.getExpenses())) {
             List<ExpenseEntity> expenseList = new ArrayList<>();
@@ -62,8 +65,13 @@ public class EntityMappers {
     }
 
     public User toUserDTO(UserEntity user) {
-        return new User(user.getId(), user.getEmail(), user.getPassword(), user.getName(), new ArrayList<>(),
-                user.getCreatedOn(), user.getUpdateOn(), user.getVersion());
+        User userDto = User.builder()
+                .id(user.getId()).email(user.getEmail())
+                .password(user.getPassword()).expenses(new ArrayList<>())
+                .credatedOn(user.getCreatedOn()).updatedOn(user.getUpdateOn())
+                .version(user.getVersion()).dateOfBirth(user.getDateOfBirth())
+                .build();
+        return userDto;
     }
 
     public static ExpenseFile toExpenseFile(ExpenseFileEntity expense) {
