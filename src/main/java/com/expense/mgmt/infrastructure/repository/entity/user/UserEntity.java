@@ -26,6 +26,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @NoArgsConstructor
@@ -63,6 +64,9 @@ public class UserEntity {
     @UpdateTimestamp
     @Column
     private LocalDateTime updateOn;
+
+    @Column
+    private LocalDate dateOfBirth;
 
     @Version
     @Column
