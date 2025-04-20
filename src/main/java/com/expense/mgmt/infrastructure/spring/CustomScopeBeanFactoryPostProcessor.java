@@ -12,9 +12,9 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 @Slf4j
 public class CustomScopeBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
-    private final static String DEMO_MVN_PREFIX = "com.example.demo_mvn";
+    private final static String DEMO_MVN_PREFIX = "com.expense.mgmt";
 
-    private final static String EXCLUDE_SPRING_APP_PACKAGE = "com.example.demo_mvn.infrastructure.spring";
+    private final static String EXCLUDE_SPRING_APP_PACKAGE = "com.expense.mgmt.infrastructure.spring";
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {

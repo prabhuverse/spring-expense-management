@@ -2,6 +2,7 @@ package com.expense.mgmt.presentation;
 
 import com.expense.mgmt.domain.model.dto.spring.ControllerInfo;
 import com.expense.mgmt.application.spring.SpringApplicationService;
+import com.expense.mgmt.infrastructure.spring.annotation.LogExecutionTime;
 import com.expense.mgmt.presentation.rest.ApiResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -41,6 +42,7 @@ public class SpringApplicationController {
     }
 
 
+    @LogExecutionTime
     @RequestMapping(method = RequestMethod.GET, value = "/mapping/{type}",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<ApiResponse<Map<String, ControllerInfo>>> listHandlerMappingMethods(
