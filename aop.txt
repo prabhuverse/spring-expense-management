@@ -1,0 +1,4 @@
+    //@Pointcut("execution (* com.expense.mgmt.*(..))")
+    //@Around("execution(* com.expense.mgmt..*(..))")
+    //@Pointcut("controllerPackage() || servicePackage()")
+    //@Around("execution(* com.expense.mgmt.application.*.(..))")

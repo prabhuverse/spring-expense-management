@@ -75,6 +75,27 @@
         </encoder>
     </appender>
 
+    <!-- Application method execution Logs (Colored in File) -->
+    <appender name="HEALTH_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/health.log</file>
+
+        <!-- Correct Rolling Policy -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>logs/health-%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>7</maxIndex>  <!-- Retain last 7 log files -->
+        </rollingPolicy>
+
+        <!-- Correct Triggering Policy -->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>20MB</maxFileSize>
+        </triggeringPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
     <!-- Define Logger for Spring Boot Logs -->
     <logger name="org.springframework" level="info" additivity="false">
         <appender-ref ref="SPRING_LOG"/>
@@ -85,17 +106,8 @@
         <appender-ref ref="HIBERNATE_LOG"/>
     </logger>
 
-    <logger name="org.hibernate.SQL" level="info" additivity="false">
-        <appender-ref ref="HIBERNATE_LOG"/>
-    </logger>
-
-    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace" additivity="false">
-        <appender-ref ref="HIBERNATE_LOG"/>
-    </logger>
-
-    <!-- Application Logs -->
-    <logger name="com.example.demo_mvn" level="info" additivity="false">
-        <appender-ref ref="APP_LOG"/>
+    <logger name="com.expense.mgmt.infrastructure.spring.aop.MethodExecutionAspect" level="info" additivity="false">
+        <appender-ref ref="HEALTH_LOG"/>
     </logger>
 
     <logger name="org.flywaydb" level="debug" additivity="false">
@@ -103,7 +115,7 @@
     </logger>
 
     <!-- Root Logger (To Log Everything) -->
-    <root level="info">
+    <root name="com.expense.mgmt" level="info" additivity="false">
         <appender-ref ref="APP_LOG"/>
     </root>
 </configuration>

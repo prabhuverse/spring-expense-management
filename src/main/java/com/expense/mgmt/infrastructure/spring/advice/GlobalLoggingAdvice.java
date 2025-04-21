@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.expense.mgmt.application.spring.ElasticsearchService;
 import com.expense.mgmt.domain.model.dto.LogDocument;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
@@ -24,7 +25,8 @@ public class GlobalLoggingAdvice implements ResponseBodyAdvice<Object> {
 
     private final ElasticsearchService elasticsearchService;
 
-    private final Gson gson = new Gson();
+    private final ObjectMapper objectMapper;
+    //private final Gson gson = new Gson();
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
@@ -39,7 +41,7 @@ public class GlobalLoggingAdvice implements ResponseBodyAdvice<Object> {
         try {
             LogDocument doc = LogDocument.builder()
                     .path(path)
-                    .message(gson.toJson(body))
+                    .message(objectMapper.writeValueAsString(body))
                     .build();
             //elasticsearchService.logToElastic(doc, "loginfo").then();
         } catch (Exception e) {
