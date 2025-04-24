@@ -2,7 +2,8 @@ package com.expense.mgmt.application;
 
 import com.expense.mgmt.domain.model.dto.Expense;
 import com.expense.mgmt.domain.model.dto.ExpenseFile;
-import com.expense.mgmt.domain.model.dto.spring.FileInfo;
+import com.expense.mgmt.domain.model.dto.FileInfo;
+import com.expense.mgmt.domain.model.dto.FileStreamInfo;
 import com.expense.mgmt.domain.model.repository.ExpenseFileObjectRepository;
 import com.expense.mgmt.domain.model.repository.ExpenseFileRepository;
 import com.expense.mgmt.infrastructure.repository.entity.EntityMappers;
@@ -10,14 +11,18 @@ import com.expense.mgmt.infrastructure.repository.entity.expense.ExpenseEntity;
 import com.expense.mgmt.domain.model.ExpenseCategory;
 import com.expense.mgmt.domain.model.repository.ExpenseRepository;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Slf4j
@@ -68,5 +73,13 @@ public class ExpenseService {
 
     public Expense getExpenseById(Long id) {
         return repository.findById(id).get();
+    }
+
+    public Optional<FileStreamInfo> downloadFile(@NonNull String path) {
+        return Optional.of(fileObjectRepository.downloadFile(path));
+    }
+
+    public Mono<FileStreamInfo> downloadFileAsync(@NonNull String path) {
+        return fileObjectRepository.downloadFileAsync(path);
     }
 }

@@ -1,4 +1,4 @@
-package com.expense.mgmt.presentation;
+package com.expense.mgmt.presentation.spring;
 
 
 import com.expense.mgmt.presentation.rest.ApiResponse;

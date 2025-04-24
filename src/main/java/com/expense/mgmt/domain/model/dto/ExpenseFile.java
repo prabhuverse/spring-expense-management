@@ -2,8 +2,6 @@ package com.expense.mgmt.domain.model.dto;
 
 import lombok.Builder;
 
-import com.expense.mgmt.domain.model.dto.spring.FileInfo;
-
 import java.time.LocalDateTime;
 
 @Builder

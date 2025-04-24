@@ -1,4 +1,4 @@
-package com.expense.mgmt.presentation;
+package com.expense.mgmt.presentation.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.expense.mgmt.domain.model.dto.spring;
+package com.expense.mgmt.domain.model.dto;
 
 import lombok.Builder;
 
