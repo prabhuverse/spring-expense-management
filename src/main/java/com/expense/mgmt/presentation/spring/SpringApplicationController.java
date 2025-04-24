@@ -1,4 +1,4 @@
-package com.expense.mgmt.presentation;
+package com.expense.mgmt.presentation.spring;
 
 import com.expense.mgmt.domain.model.dto.spring.ControllerInfo;
 import com.expense.mgmt.application.spring.SpringApplicationService;

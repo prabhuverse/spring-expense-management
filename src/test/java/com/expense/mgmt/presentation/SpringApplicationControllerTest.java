@@ -1,6 +1,7 @@
 package com.expense.mgmt.presentation;
 
 
+import com.expense.mgmt.presentation.spring.SpringApplicationController;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -9,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 public class SpringApplicationControllerTest {
 
 	@Mock
-	SpringApplicationController applicationController;
+    SpringApplicationController applicationController;
 
 
 }

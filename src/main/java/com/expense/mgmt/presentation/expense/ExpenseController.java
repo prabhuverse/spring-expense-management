@@ -1,4 +1,4 @@
-package com.expense.mgmt.presentation;
+package com.expense.mgmt.presentation.expense;
 
 import com.expense.mgmt.application.ExpenseService;
 import com.expense.mgmt.domain.model.dto.Expense;
@@ -8,11 +8,9 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,12 +37,6 @@ public class ExpenseController {
         return expenseService.createExpense(expense);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/upload/{expenseId}", consumes = {
-            MediaType.MULTIPART_FORM_DATA_VALUE
-    })
-    public Expense uploadFile(@PathVariable("expenseId") Long expenseId, @RequestParam("file") MultipartFile file) {
-        return expenseService.uploadFile(expenseId, file);
-    }
 
     @RequestMapping(method = RequestMethod.GET, path = "/list/{category}", produces = {
             MediaType.APPLICATION_JSON_VALUE})
