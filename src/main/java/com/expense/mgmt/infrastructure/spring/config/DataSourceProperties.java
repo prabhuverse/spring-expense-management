@@ -1,4 +1,4 @@
-package com.expense.mgmt.infrastructure.config;
+package com.expense.mgmt.infrastructure.spring.config;
 
 
 import lombok.Getter;

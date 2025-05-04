@@ -1,4 +1,4 @@
-package com.expense.mgmt.infrastructure.config.flyway;
+package com.expense.mgmt.infrastructure.spring.config.flyway;
 
 import org.flywaydb.core.Flyway;
 import org.springframework.boot.autoconfigure.flyway.FlywayProperties;
