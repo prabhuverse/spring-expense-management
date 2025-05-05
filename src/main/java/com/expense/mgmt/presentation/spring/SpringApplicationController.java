@@ -6,6 +6,7 @@ import com.expense.mgmt.infrastructure.spring.annotation.LogExecutionTime;
 import com.expense.mgmt.presentation.rest.ApiResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

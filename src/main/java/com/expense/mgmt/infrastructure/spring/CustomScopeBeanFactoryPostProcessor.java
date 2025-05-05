@@ -14,14 +14,14 @@ public class CustomScopeBeanFactoryPostProcessor implements BeanFactoryPostProce
 
     private final static String DEMO_MVN_PREFIX = "com.expense.mgmt";
 
-    private final static String EXCLUDE_SPRING_APP_PACKAGE = "com.expense.mgmt.infrastructure.spring";
+    private final static String EXCLUDE_INFRASTRUCTURE_PACKAGE = "com.expense.mgmt.infrastructure";
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
         for (String beanName : beanFactory.getBeanDefinitionNames()) {
             String beanClassName = beanFactory.getBeanDefinition(beanName).getBeanClassName();
             if (StringUtils.isNotBlank(beanClassName) && StringUtils.startsWith(beanClassName, DEMO_MVN_PREFIX)
-                && !StringUtils.startsWith(beanClassName, EXCLUDE_SPRING_APP_PACKAGE)) {
+                && !StringUtils.startsWith(beanClassName, EXCLUDE_INFRASTRUCTURE_PACKAGE)) {
                 BeanDefinition beanDefinition = beanFactory.getBeanDefinition(beanName);
                 log.debug("Custom Scope BeanPostFactoryProcessor {}", beanName);
                 beanDefinition.setScope(BeanDefinition.SCOPE_SINGLETON);
