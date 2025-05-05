@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.expense.mgmt.application.spring.ElasticsearchService;
 import com.expense.mgmt.domain.model.dto.LogDocument;
+import com.expense.mgmt.domain.model.dto.kafka.StreamingObjectInfo;
+import com.expense.mgmt.infrastructure.spring.config.kafka.KafkaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.springframework.core.MethodParameter;
@@ -25,6 +27,8 @@ public class GlobalLoggingAdvice implements ResponseBodyAdvice<Object> {
 
     private final ElasticsearchService elasticsearchService;
 
+    private final KafkaService kafkaService;
+
     private final ObjectMapper objectMapper;
     //private final Gson gson = new Gson();
 
@@ -43,7 +47,8 @@ public class GlobalLoggingAdvice implements ResponseBodyAdvice<Object> {
                     .path(path)
                     .message(objectMapper.writeValueAsString(body))
                     .build();
-            //elasticsearchService.logToElastic(doc, "loginfo").then();
+            elasticsearchService.logToElastic(doc, "loginfo").subscribe();
+            kafkaService.send(StreamingObjectInfo.builder().type(StreamingObjectInfo.StreamingType.KAFKA).topic("log").message(doc).build());
         } catch (Exception e) {
             log.error("Error occured while logging to elasticsearch {} cause", path, e);
         }
