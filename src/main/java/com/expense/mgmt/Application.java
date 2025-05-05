@@ -6,14 +6,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.retry.annotation.EnableRetry;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
+//import org.springframework.scheduling.annotation.EnableAsync;
+//import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Slf4j
-@EnableScheduling
+//@EnableScheduling
 @EnableRetry
-@EnableAsync
-@EnableAspectJAutoProxy(proxyTargetClass = false)
+//@EnableAsync
+@EnableAspectJAutoProxy(proxyTargetClass = true) // forces to use CGLIB
 @SpringBootApplication(scanBasePackages = {"com.expense.mgmt"})
 public class Application {
 

@@ -63,11 +63,14 @@ This app demonstrates:
 To run this project, use the following Docker Compose files to set up the Kafka and ELK stack:
 
 ```bash
-docker-compose -f docker-compose.kafka.yml -f docker-compose.elk.yml up
+
+# Start Kafka and ELK services
+docker-compose -f docker-compose.kafka.yml -f docker-compose.elk.yml up -d 
+# Stop Kafka and ELK services
+docker-compose -f docker-compose.kafka.yml -f docker-compose.elk.yml down
+```
 
 
-```bash
-./mvnw spring-boot:run
 
 
 
