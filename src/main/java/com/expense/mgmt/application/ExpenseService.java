@@ -1,7 +1,9 @@
 package com.expense.mgmt.application;
 
-import com.expense.mgmt.domain.model.dto.Expense;
-import com.expense.mgmt.domain.model.dto.ExpenseFile;
+import com.expense.mgmt.domain.model.dto.expense.Expense;
+import com.expense.mgmt.domain.model.dto.expense.ExpenseCategoryRequest;
+import com.expense.mgmt.domain.model.dto.expense.ExpenseCategoryResponse;
+import com.expense.mgmt.domain.model.dto.expense.ExpenseFile;
 import com.expense.mgmt.domain.model.dto.FileInfo;
 import com.expense.mgmt.domain.model.dto.FileStreamInfo;
 import com.expense.mgmt.domain.model.repository.ExpenseFileObjectRepository;
@@ -15,7 +17,9 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.core.io.InputStreamResource;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -63,8 +67,12 @@ public class ExpenseService {
         return expense;
     }
 
-    public List<Expense> listExpenseByType(ExpenseCategory category) {
-        return repository.findByCategory(category);
+    public ExpenseCategoryResponse listExpenseByType(ExpenseCategoryRequest request) {
+        ExpenseCategory category = ExpenseCategory.valueOf(request.category().toUpperCase());
+        int size = request.size();
+        int page = request.page();
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
+        return repository.findByCategory(category, pageable);
     }
 
     public Expense deleteExpense(Long id) {

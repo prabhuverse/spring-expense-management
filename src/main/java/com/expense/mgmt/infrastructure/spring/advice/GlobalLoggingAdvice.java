@@ -47,8 +47,8 @@ public class GlobalLoggingAdvice implements ResponseBodyAdvice<Object> {
                     .path(path)
                     .message(objectMapper.writeValueAsString(body))
                     .build();
-            elasticsearchService.logToElastic(doc, "loginfo").subscribe();
-            kafkaService.send(StreamingObjectInfo.builder().type(StreamingObjectInfo.StreamingType.KAFKA).topic("log").message(doc).build());
+            //elasticsearchService.logToElastic(doc, "loginfo").subscribe();
+            //kafkaService.send(StreamingObjectInfo.builder().type(StreamingObjectInfo.StreamingType.KAFKA).topic("log").message(doc).build());
         } catch (Exception e) {
             log.error("Error occured while logging to elasticsearch {} cause", path, e);
         }

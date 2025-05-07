@@ -2,7 +2,7 @@ package com.expense.mgmt.infrastructure.repository.expense.persistance;
 
 import lombok.RequiredArgsConstructor;
 
-import com.expense.mgmt.domain.model.dto.ExpenseFile;
+import com.expense.mgmt.domain.model.dto.expense.ExpenseFile;
 import com.expense.mgmt.domain.model.repository.ExpenseFileRepository;
 import com.expense.mgmt.infrastructure.repository.entity.EntityMappers;
 import com.expense.mgmt.infrastructure.repository.entity.expense.ExpenseFileEntity;

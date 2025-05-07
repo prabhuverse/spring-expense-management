@@ -1,6 +1,6 @@
 package com.expense.mgmt.domain.model.repository;
 
-import com.expense.mgmt.domain.model.dto.ExpenseFile;
+import com.expense.mgmt.domain.model.dto.expense.ExpenseFile;
 
 import java.util.List;
 import java.util.Optional;
