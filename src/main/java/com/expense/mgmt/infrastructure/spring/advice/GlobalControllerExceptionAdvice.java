@@ -3,7 +3,6 @@ package com.expense.mgmt.infrastructure.spring.advice;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.expense.mgmt.domain.model.dto.Expense;
 import com.expense.mgmt.presentation.rest.ApiResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;

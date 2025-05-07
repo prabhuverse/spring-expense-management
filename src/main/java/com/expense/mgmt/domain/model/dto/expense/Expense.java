@@ -1,6 +1,8 @@
-package com.expense.mgmt.domain.model.dto;
+package com.expense.mgmt.domain.model.dto.expense;
 
 import com.expense.mgmt.domain.model.ExpenseCategory;
+import com.expense.mgmt.domain.model.dto.Group;
+import com.expense.mgmt.domain.model.dto.User;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import com.expense.mgmt.application.ExpenseService;
-import com.expense.mgmt.domain.model.dto.Expense;
+import com.expense.mgmt.domain.model.dto.expense.Expense;
 import com.expense.mgmt.domain.model.dto.FileRequest;
 import com.expense.mgmt.domain.model.dto.FileStreamInfo;
 import org.springframework.http.MediaType;

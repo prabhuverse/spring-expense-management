@@ -1,5 +1,6 @@
 package com.expense.mgmt.domain.model.dto;
 
+import com.expense.mgmt.domain.model.dto.expense.Expense;
 import com.expense.mgmt.infrastructure.spring.annotation.MaskField;
 
 import lombok.Getter;

@@ -2,8 +2,8 @@ package com.expense.mgmt.infrastructure.repository.entity;
 
 import lombok.experimental.UtilityClass;
 
-import com.expense.mgmt.domain.model.dto.Expense;
-import com.expense.mgmt.domain.model.dto.ExpenseFile;
+import com.expense.mgmt.domain.model.dto.expense.Expense;
+import com.expense.mgmt.domain.model.dto.expense.ExpenseFile;
 import com.expense.mgmt.domain.model.dto.Group;
 import com.expense.mgmt.domain.model.dto.User;
 import com.expense.mgmt.infrastructure.repository.entity.expense.ExpenseEntity;

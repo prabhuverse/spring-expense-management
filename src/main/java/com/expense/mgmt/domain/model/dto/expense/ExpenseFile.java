@@ -1,6 +1,8 @@
-package com.expense.mgmt.domain.model.dto;
+package com.expense.mgmt.domain.model.dto.expense;
 
 import lombok.Builder;
+
+import com.expense.mgmt.domain.model.dto.FileInfo;
 
 import java.time.LocalDateTime;
 

@@ -1,13 +1,16 @@
 package com.expense.mgmt.infrastructure.repository.expense.persistance;
 
+import com.expense.mgmt.domain.model.dto.expense.ExpenseCategoryResponse;
 import com.expense.mgmt.infrastructure.repository.entity.EntityMappers;
-import com.expense.mgmt.domain.model.dto.Expense;
+import com.expense.mgmt.domain.model.dto.expense.Expense;
 import com.expense.mgmt.infrastructure.repository.entity.expense.ExpenseEntity;
 import com.expense.mgmt.domain.model.ExpenseCategory;
 import com.expense.mgmt.domain.model.repository.ExpenseRepository;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -43,9 +46,14 @@ public class JpaExpenseRepository implements ExpenseRepository {
     }
 
     @Override
-    public List<Expense> findByCategory(ExpenseCategory category) {
-        List<ExpenseEntity> expenses = expenseRepository.findByCategory(category);
-        return expenses.stream().map(EntityMappers::toExpense).toList();
+    public ExpenseCategoryResponse findByCategory(ExpenseCategory category, Pageable pageable) {
+        Page<ExpenseEntity> expenses = expenseRepository.findByCategory(category, pageable);
+        return ExpenseCategoryResponse.builder()
+                .expenses(expenses.stream().map(EntityMappers::toExpense).toList())
+                .hasNext(expenses.hasNext())
+                .totalElements(expenses.getTotalElements())
+                .totalPages(expenses.getTotalPages())
+                .build();
     }
 
     @Override
